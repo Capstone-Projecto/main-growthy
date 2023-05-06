@@ -24,10 +24,10 @@ Currently we still developing the Apps. Stay tune!
 
 ## Repository Branches
 
-1. [main](https://github.com/LouisBay/manduin-apps) - About Project
-2. [cloud-computing](https://github.com/LouisBay/manduin-apps/tree/cloud-computing) - CC Project Repository
-3. [machine-learning](https://github.com/LouisBay/manduin-apps/tree/machine-learning) - ML Project Repository
-4. [mobile-development](https://github.com/LouisBay/manduin-apps/tree/mobile-development) - MD Project Repository
+1. [main](https://github.com/anShape/bangkit-capstone) - About Project
+2. [cloud-computing](https://github.com/anShape/bangkit-capstone/tree/cloud-computing) - CC Project Repository
+3. [machine-learning](https://github.com/anShape/bangkit-capstone/tree/machine-learning) - ML Project Repository
+4. [mobile-development](https://github.com/anShape/bangkit-capstone/tree/mobile-development) - MD Project Repository
 
 ## Technologies
 

@@ -16,7 +16,7 @@ Currently we still developing the Apps. Stay tune!
 |         Member                    |   Student ID  |        Path        |                University             |                                               
 | :------------------------------:  |  :----------: | :----------------: |  :----------------------------------: |
 |  Ihsan Nurkhotib                  |  M132DKX4052  |  Machine Learning  |  Universitas Airlangga                |
-|  Dhea Yuza Fadiya                 |  M253DSY0478  |  Machine Learning  |  Universitas Gadjah Mada              |
+|  Dhea Yuza Fadiya                 |  M253DSY0478  |  Machine Learning  |  Universitas Muhammadiyah Purwokerto  |
 |  Valencia Vannessa                |  A228DSY3375  | Mobile Development |  Universitas Kristen Satya Wacana     |
 |  Yoga Agung Prasetia              |  A228DSX3071  | Mobile Development |  Universitas Kristen Satya Wacana     |
 |  Almeyda Legina                   |  C169DSY3247  |  Cloud Computing   |  Universitas Gadjah Mada              |

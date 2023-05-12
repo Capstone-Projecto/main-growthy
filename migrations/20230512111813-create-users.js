@@ -1,3 +1,5 @@
+// migrate:latest --env development --migrations-path migrations --config config/config.json
+
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -14,6 +16,11 @@ module.exports = {
       },
 
       email: {
+        type: Sequelize.STRING,
+        unique: true
+      },
+
+      password: {
         type: Sequelize.STRING
       },
 

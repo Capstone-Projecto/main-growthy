@@ -1,3 +1,5 @@
+// Seeders are used to populate database with some initial data.
+
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
@@ -12,6 +14,7 @@ module.exports = {
     {
       name: 'Gito',
       email: 'example@example.com',
+      password: '123456',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

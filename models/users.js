@@ -11,12 +11,24 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+            this.belongsToMany(models.financial_dashboard, {
+        through: 'users_has_financial_dashboard',
+        as: 'financial_dashboard',
+        foreignKey: 'user_id',
+        otherKey: 'financial_dashboard_id'
+      
+            })
     }
   }
   users.init({
     name: DataTypes.STRING,
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    gender: DataTypes.STRING,
+    phone: DataTypes.STRING,
+    address: DataTypes.STRING,
+    balance: DataTypes.INTEGER,
+    avatar: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'users',

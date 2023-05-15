@@ -1,45 +1,27 @@
-// migrate:latest --env development --migrations-path migrations --config config/config.json
-
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('financial_dashboards', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      date_time: {
+        type: Sequelize.DATE
       },
-
-      email: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-
-      password: {
-        type: Sequelize.STRING
-      },
-
-      gender: {
-        type: Sequelize.STRING
-      },
-
-      phone: {
-        type: Sequelize.STRING
-      },
-
-      address: {
-        type: Sequelize.STRING
-      },
-      balance: {
+      pemasukan: {
         type: Sequelize.INTEGER
       },
-      // Foto Profil
-      avatar: {
+      pengeluaran: {
+        type: Sequelize.INTEGER
+      },
+      desc_pemasukan: {
+        type: Sequelize.STRING
+      },
+      desc_pengeluaran: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -53,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('financial_dashboards');
   }
 };

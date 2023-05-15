@@ -1,45 +1,42 @@
-// migrate:latest --env development --migrations-path migrations --config config/config.json
-
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('diseases', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      disease_local_name: {
         type: Sequelize.STRING
       },
-
-      email: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-
-      password: {
+      target: {
         type: Sequelize.STRING
       },
-
-      gender: {
+      scientic_name: {
         type: Sequelize.STRING
       },
-
-      phone: {
+      disease_desc: {
         type: Sequelize.STRING
       },
-
-      address: {
+      symptoms: {
         type: Sequelize.STRING
       },
-      balance: {
-        type: Sequelize.INTEGER
+      prevention: {
+        type: Sequelize.STRING
       },
-      // Foto Profil
-      avatar: {
+      causes: {
+        type: Sequelize.STRING
+      },
+      potention: {
+        type: Sequelize.STRING
+      },
+      treatment: {
+        type: Sequelize.STRING
+      },
+      disease_image: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -53,6 +50,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('diseases');
   }
 };

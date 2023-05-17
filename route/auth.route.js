@@ -9,6 +9,7 @@ route.post('/login', async(req, res) => {
     const password = req.body.password
     const isUserExist = await users.findOne({where: {email: email}})
   
+    // Check if user exist
     if(!isUserExist){
       return res.send('User not found')
     }else {
@@ -23,20 +24,19 @@ route.post('/login', async(req, res) => {
   
   // Register logic
   route.post('/register', async(req, res) => {
-    const name = req.body.name
     const email = req.body.email
     const password = req.body.password
   
-    // Hashing password
+    // Hash password
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
   
-    // Register logic
+    // Check if user already exist
     const isUserExist = await users.findOne({where: {email: email}})
     if(isUserExist){
       return res.send('User already exist')
     }else {
-      await users.create({name: name, email: email, password: hash})
+      await users.create({email: email, password: hash})
       return res.send('Register success')
     }
   })

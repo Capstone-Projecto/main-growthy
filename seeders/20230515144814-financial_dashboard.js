@@ -7,6 +7,7 @@ module.exports = {
       date_time: new Date(),
       pemasukan: 1000000,
       desc_pemasukan: 'Gaji',
+      type : 'pemasukan',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -14,6 +15,7 @@ module.exports = {
       date_time: new Date(),
       pengeluaran: 500000,
       desc_pengeluaran: 'Makan',
+      type : 'pengeluaran',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -21,6 +23,7 @@ module.exports = {
       date_time: new Date(),
       pemasukan: 1000000,
       desc_pemasukan: 'Gaji',
+      type : 'pemasukan',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

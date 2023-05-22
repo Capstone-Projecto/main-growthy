@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(models.users, {
         through: 'users_has_financial_dashboard',
-        as: 'financial_dashboard',
+        as: 'users',
         foreignKey: 'financial_dashboard_id',
         otherKey: 'user_id'
       })
@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     pemasukan: DataTypes.INTEGER,
     pengeluaran: DataTypes.INTEGER,
     desc_pemasukan: DataTypes.STRING,
-    desc_pengeluaran: DataTypes.STRING
+    desc_pengeluaran: DataTypes.STRING,
+    type: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'financial_dashboard',

@@ -1,7 +1,9 @@
+require ('dotenv').config();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const{ users } = require('../models');
 const route = require("express").Router();
+const jwt = require('jsonwebtoken');
 
 // Login logic
 route.post('/login', async(req, res) => {
@@ -14,8 +16,13 @@ route.post('/login', async(req, res) => {
       return res.send('User not found')
     }else {
       const isPasswordMatch = bcrypt.compareSync(password, isUserExist.password);
+      const token = jwt.sign({id: isUserExist.id}, process.env.JWT_SECRET)
+
       if(isPasswordMatch){
-        return res.send('Login success')
+        return res.send({
+          message: 'Login success',
+          token: token
+        })
       }else {
         return res.send('Wrong password')
       }
@@ -24,6 +31,7 @@ route.post('/login', async(req, res) => {
   
   // Register logic
   route.post('/register', async(req, res) => {
+    const name = req.body.name
     const email = req.body.email
     const password = req.body.password
   
@@ -36,7 +44,7 @@ route.post('/login', async(req, res) => {
     if(isUserExist){
       return res.send('User already exist')
     }else {
-      await users.create({email: email, password: hash})
+      await users.create({name: name, email: email, password: hash})
       return res.send('Register success')
     }
   })

@@ -2,14 +2,7 @@ const { users, financial_dashboard, users_has_financial_dashboard } = require('.
 const route = require("express").Router();
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
-
-// Konfigurasi penyimpanan Google Cloud Storage
-const storage = new Storage({
-  projectId: 'your-project-id', // Ganti dengan ID proyek Google Cloud Storage Anda
-  keyFilename: '/serviceAccountKey.json' // Ganti dengan path ke berkas kunci layanan JSON Anda
-});
-const bucketName = 'your-bucket-name'; // Ganti dengan nama bucket Google Cloud Storage Anda
-const bucket = storage.bucket(bucketName);
+const multerGoogleStorage = require('multer-google-storage');
 
 // Konfigurasi multer untuk mengunggah file
 const multerUpload = multer({
@@ -18,6 +11,18 @@ const multerUpload = multer({
     fileSize: 10 * 1024 * 1024, // Batas ukuran file (dalam byte), dalam contoh ini 10MB
   },
 });
+
+// Membuat objek Storage menggunakan projectId dan keyFilename
+const storage = new Storage({
+  projectId: 'growthy-app',
+  keyFilename: 'serviceAccountKey.json'
+});
+
+// Membuat objek bucket menggunakan nama bucket yang diinginkan
+const bucket = storage.bucket('profile-user');
+
+// Membuat handler untuk mengunggah file menggunakan multerGoogleStorage
+const uploadHandler = multerUpload.single('avatar');
 
 // Get all users
 route.get('/users', async (req, res) => {
@@ -42,7 +47,7 @@ route.get('/users', async (req, res) => {
 });
 
 // Edit profile
-route.put('/edit_profile', multerUpload.single('avatar'), async (req, res) => {
+route.put('/edit_profile', uploadHandler, async (req, res) => {
   const id = req.user.id;
   const name = req.body.name;
   const email = req.body.email;
@@ -75,7 +80,7 @@ route.put('/edit_profile', multerUpload.single('avatar'), async (req, res) => {
 
       blobStream.on('finish', () => {
         // Set URL avatar yang baru diunggah
-        avatarUrl = `https://storage.googleapis.com/${bucketName}/${filename}`;
+        avatarUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
 
         // Hapus file avatar yang lama jika ada
         if (user.avatar) {
@@ -105,36 +110,34 @@ route.put('/edit_profile', multerUpload.single('avatar'), async (req, res) => {
             console.log(error);
             res.send('Error updating profile');
           });
-      });
+        });
 
-      blobStream.end(file.buffer);
-    } else {
-      // Jika tidak ada file avatar yang diunggah, langsung perbarui profil pengguna
-      users.update(
-        {
-          name: name,
-          email: email,
-          gender: gender,
-          phone: phone,
-          address: address,
-          avatar: avatarUrl
-        },
-        { where: { id: id } }
-      )
-        .then(() => {
-          res.send('Profile updated successfully');
-        }
+        blobStream.end(file.buffer);
+      } else {
+        // Jika tidak ada file avatar yang diunggah, langsung perbarui profil pengguna
+        users.update(
+          {
+            name: name,
+            email: email,
+            gender: gender,
+            phone: phone,
+            address: address,
+            avatar: avatarUrl
+          },
+          { where: { id: id } }
         )
-        .catch((error) => {
-          console.log(error);
-          res.send('Error updating profile');
-        }
-        );
+          .then(() => {
+            res.send('Profile updated successfully');
+          })
+          .catch((error) => {
+            console.log(error);
+            res.send('Error updating profile');
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      res.send('Error updating profile');
     }
-  } catch (error) {
-    console.log(error);
-    res.send('Error updating profile');
-  }
-});
-
-module.exports = route;
+  });
+  
+  module.exports = route;

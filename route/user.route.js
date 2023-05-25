@@ -42,23 +42,18 @@ route.get('/users', async (req, res) => {
     res.send(usersData);
   } catch (error) {
     console.log(error);
-    res.send('Error retrieving users data');
+    res.status(500).send('Error retrieving users data');
   }
 });
 
 // Edit profile
 route.put('/edit_profile', uploadHandler, async (req, res) => {
-  const id = req.user.id;
-  const name = req.body.name;
-  const email = req.body.email;
-  const gender = req.body.gender;
-  const phone = req.body.phone;
-  const address = req.body.address;
+  const { id, name, email, gender, phone, address } = req.body;
 
   try {
-    const user = await users.findOne({ where: { id: id } });
+    const user = await users.findByPk(id);
     if (!user) {
-      return res.send('User not found');
+      return res.status(404).send('User not found');
     }
 
     // Jika ada file avatar yang diunggah, simpan di Google Cloud Storage
@@ -75,10 +70,10 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
 
       blobStream.on('error', (err) => {
         console.log(err);
-        res.send('Error uploading avatar');
+        res.status(500).send('Error uploading avatar');
       });
 
-      blobStream.on('finish', () => {
+      blobStream.on('finish', async () => {
         // Set URL avatar yang baru diunggah
         avatarUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
 
@@ -86,58 +81,52 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
         if (user.avatar) {
           const oldFilename = user.avatar.split('/').pop();
           const oldFile = bucket.file(oldFilename);
-          oldFile.delete().catch((err) => {
-            console.log(err);
-          });
+          try {
+            await oldFile.delete();
+          } catch (error) {
+            console.log(error);
+          }
         }
 
         // Perbarui profil pengguna
-        users.update(
-          {
-            name: name,
-            email: email,
-            gender: gender,
-            phone: phone,
-            address: address,
+        try {
+          await user.update({
+            name,
+            email,
+            gender,
+            phone,
+            address,
             avatar: avatarUrl
-          },
-          { where: { id: id } }
-        )
-          .then(() => {
-            res.send('Profile updated successfully');
-          })
-          .catch((error) => {
-            console.log(error);
-            res.send('Error updating profile');
           });
-        });
+          res.send('Profile updated successfully');
+        } catch (error) {
+          console.log(error);
+          res.status(500).send('Error updating profile');
+        }
+      });
 
-        blobStream.end(file.buffer);
-      } else {
-        // Jika tidak ada file avatar yang diunggah, langsung perbarui profil pengguna
-        users.update(
-          {
-            name: name,
-            email: email,
-            gender: gender,
-            phone: phone,
-            address: address,
-            avatar: avatarUrl
-          },
-          { where: { id: id } }
-        )
-          .then(() => {
-            res.send('Profile updated successfully');
-          })
-          .catch((error) => {
-            console.log(error);
-            res.send('Error updating profile');
-          });
+      blobStream.end(file.buffer);
+    } else {
+      // Jika tidak ada file avatar yang diunggah, langsung perbarui profil pengguna
+      try {
+        await user.update({
+          name,
+          email,
+          gender,
+          phone,
+          address,
+          avatar: avatarUrl
+        });
+        res.send('Profile updated successfully');
+      } catch (error) {
+        console.log(error);
+        res.status(500).send('Error updating profile');
       }
-    } catch (error) {
-      console.log(error);
-      res.send('Error updating profile');
     }
-  });
-  
-  module.exports = route;
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error updating profile');
+  }
+});
+
+module.exports = route;

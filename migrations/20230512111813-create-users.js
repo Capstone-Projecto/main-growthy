@@ -40,7 +40,7 @@ module.exports = {
       },
       // Foto Profil
       avatar: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

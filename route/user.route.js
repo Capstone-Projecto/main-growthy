@@ -2,13 +2,12 @@ const { users, financial_dashboard, users_has_financial_dashboard } = require('.
 const route = require("express").Router();
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
-const multerGoogleStorage = require('multer-google-storage');
 
 // Konfigurasi multer untuk mengunggah file
 const multerUpload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 10 * 1024 * 1024, // Batas ukuran file (dalam byte), dalam contoh ini 10MB
+    fileSize: 5 * 1024 * 1024, // Batas ukuran file (dalam byte) 5MB
   },
 });
 
@@ -21,7 +20,7 @@ const storage = new Storage({
 // Membuat objek bucket menggunakan nama bucket yang diinginkan
 const bucket = storage.bucket('profile-user');
 
-// Membuat handler untuk mengunggah file menggunakan multerGoogleStorage
+// Membuat handler untuk mengunggah file menggunakan multer
 const uploadHandler = multerUpload.single('avatar');
 
 // Get all users

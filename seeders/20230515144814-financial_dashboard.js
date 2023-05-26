@@ -3,30 +3,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('financial_dashboards', [{
-      date_time: new Date(),
-      pemasukan: 1000000,
-      desc_pemasukan: 'Gaji',
-      type : 'pemasukan',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      date_time: new Date(),
-      pengeluaran: 500000,
-      desc_pengeluaran: 'Makan',
-      type : 'pengeluaran',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      date_time: new Date(),
-      pemasukan: 1000000,
-      desc_pemasukan: 'Gaji',
-      type : 'pemasukan',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+    // return queryInterface.bulkInsert('financial_dashboards', [{
+    //   date_time: new Date(),
+    //   pemasukan: 1000000,
+    //   desc_pemasukan: 'Gaji',
+    //   type : 'pemasukan',
+    //   createdAt: new Date(),
+    //   updatedAt: new Date()
+    // }]);
   },
 
   async down (queryInterface, Sequelize) {

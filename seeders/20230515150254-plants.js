@@ -1,35 +1,23 @@
 'use strict';
-
+// Data dummy
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('plants', [{
-      local_name: 'Padi',
-      species: 'Oryza sativa',
-      genus: 'Oryza',
-      ordo: 'Poales',
-      plant_desc: 'Padi adalah tanaman pangan yang sangat penting bagi kehidupan manusia. Padi merupakan sumber karbohidrat yang sangat baik bagi manusia. Padi juga merupakan sumber bahan pangan yang sangat penting bagi hewan ternak. Padi juga merupakan sumber bahan baku industri.',
-      cultivation: 'Padi dapat ditanam di lahan sawah maupun lahan kering. Padi dapat ditanam di lahan sawah dengan cara menanam bibit padi di lahan yang telah dialiri air. Padi dapat ditanam di lahan kering dengan cara menanam bibit padi di lahan yang tidak dialiri air.',
-      plant_disease: 'Bercak Daun Coklat, Hawar Daun Bakteri, Hawar Daun Cercospora, Hawar Daun Helminthosporium, Hawar Daun Tungro, Hawar Daun Xanthomonas, Hawar Daun Bipolaris, Hawar Daun Pseudomonas, Hawar Daun Pyricularia, Hawar Daun Rhizoctonia, Hawar Daun Septoria, Hawar Daun Thanatephorus',
-      prevention: 'Penggunaan Varietas Tahan Hawar Daun',
-      difficulty: 'Sulit',
-      price: 10000,
-      plant_image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Rice_Plant_%28Oryza_sativa%29.jpg/1200px-Rice_Plant_%28Oryza_sativa%29.jpg',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      local_name: 'Jagung',
-      species: 'Zea mays',
-      genus: 'Zea',
-      ordo: 'Poales',
-      plant_desc: 'Jagung adalah tanaman pangan yang sangat penting bagi kehidupan manusia. Jagung merupakan sumber karbohidrat yang sangat baik bagi manusia. Jagung juga merupakan sumber bahan pangan yang sangat penting bagi hewan ternak. Jagung juga merupakan sumber bahan baku industri.',
-      cultivation: 'Jagung dapat ditanam di lahan sawah maupun lahan kering. Jagung dapat ditanam di lahan sawah dengan cara menanam bibit jagung di lahan yang telah dialiri air. Jagung dapat ditanam di lahan kering dengan cara menanam bibit jagung di lahan yang tidak dialiri air.',
-      plant_disease: 'Busuk Batang, Busuk Buah, Busuk Daun, Bu',
-      prevention: 'Penggunaan Varietas Tahan Hawar Daun',
-      difficulty: 'Sulit',
-      price: 10000,
-      plant_image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Rice_Plant_%28Oryza_sativa%29.jpg/1200px-Rice_Plant_%28Oryza_sativa%29.jpg',
+      local_name: 'Succulent Mini',
+      species: 'Echeveria Minima',
+      genus: 'Echeveria',
+      ordo: 'Saxifragales',
+      plant_desc: 'Echeveria minima adalah tanaman sukulen dengan daun menebal berbentuk rosette yang indah. Daunnya berwarna hijau kebiruan, keabu-abuan, atau ungu tua dengan tepi yang bergelombang sedikit. Tanaman ini tumbuh hingga ketinggian sekitar 10 cm dan lebar sekitar 15 cm.',
+      cultivation: 'Langkah penanaman',
+      plant_disease: 'Penyakit yang umum terjadi pada Echeveria minima adalah busuk akar dan penyakit daun seperti hama kutu daun.',
+      prevention: 'Pastikan tanah memiliki drainase yang baik, hindari terlalu sering menyiram tanaman sehingga tanah tidak menjadi terlalu basah. Jaga kebersihan tanaman dan hindari kerumunan tanaman yang terlalu rapat. Pastikan tanaman tidak terlalu lembab dan terkena sinar matahari yang cukup.',
+      difficulty: 'Mudah',
+      price: 30000,
+      // gambar tanaman 3 buah
+      plant_images1: 'https://www.plantandpot.nz/wp-content/uploads/2019/03/Echeveria-Minima.jpg',
+      plant_images2: 'https://www.plantandpot.nz/wp-content/uploads/2019/03/Echeveria-Minima.jpg',
+      plant_images3: 'https://www.plantandpot.nz/wp-content/uploads/2019/03/Echeveria-Minima.jpg',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

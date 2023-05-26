@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     causes: DataTypes.STRING,
     potention: DataTypes.STRING,
     treatment: DataTypes.STRING,
-    disease_image: DataTypes.STRING
+    disease_images: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'disease',

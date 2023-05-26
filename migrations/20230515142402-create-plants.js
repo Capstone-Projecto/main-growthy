@@ -39,10 +39,15 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      plant_image: {
+      plant_images1: {
         type: Sequelize.STRING
       },
-
+      plant_images2: {
+        type: Sequelize.STRING
+      },
+      plant_images3: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -1,5 +1,0 @@
-config
-node_modules
-storage-serviceAccountKey.json
-.env
-.gitignore

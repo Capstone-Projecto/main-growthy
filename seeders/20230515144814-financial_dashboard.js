@@ -4,12 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     // return queryInterface.bulkInsert('financial_dashboards', [{
-    //   date_time: new Date(),
-    //   pemasukan: 1000000,
-    //   desc_pemasukan: 'Gaji',
-    //   type : 'pemasukan',
-    //   createdAt: new Date(),
-    //   updatedAt: new Date()
+      
     // }]);
   },
 

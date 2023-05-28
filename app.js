@@ -1,5 +1,3 @@
-require('@google-cloud/debug-agent').start() // Debugging
-
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -23,8 +21,8 @@ app.use((req, res, next) => {
 
 // Error handling
 app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).send('Internal Server Error');
+  console.error(err);
+  res.status(500).send(`Internal Server Error: ${err.message}`);
 });
 
 // Listen to port

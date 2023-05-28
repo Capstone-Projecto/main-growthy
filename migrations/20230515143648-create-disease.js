@@ -19,22 +19,22 @@ module.exports = {
         type: Sequelize.STRING
       },
       disease_desc: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       symptoms: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       prevention: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       causes: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       potention: {
         type: Sequelize.STRING
       },
       treatment: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       disease_images1: {
         type: Sequelize.STRING

@@ -22,16 +22,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       plant_desc: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       cultivation: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       plant_disease: {
         type: Sequelize.STRING
       },
       prevention: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       difficulty: {
         type: Sequelize.STRING

@@ -13,8 +13,8 @@ const multerUpload = multer({
 
 // Membuat objek Storage menggunakan projectId dan keyFilename
 const storage = new Storage({
-  projectId: 'growthy-app',
-  keyFilename: 'serviceAccountKey.json'
+  projectId: process.env.GCP_PROJECT_ID,
+  keyFilename: process.env.STORAGE_CREDENTIALS,
 });
 
 // Membuat objek bucket menggunakan nama bucket yang diinginkan
@@ -125,6 +125,42 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send('Error updating profile');
+  }
+});
+
+// Edit password
+route.put('/edit_password', async (req, res) => {
+  const { id, currentPassword, newPassword } = req.body;
+
+  try {
+    const user = await users.findByPk(id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    // Periksa apakah password saat ini sesuai
+    const isPasswordMatch = bcrypt.compareSync(currentPassword, user.password);
+    if (!isPasswordMatch) {
+      return res.status(401).send('Current password is incorrect');
+    }
+
+    // Hash password baru
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword = bcrypt.hashSync(newPassword, salt);
+
+    // Perbarui password pengguna
+    try {
+      await user.update({
+        password: hashedPassword
+      });
+      res.send('Password updated successfully');
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Error updating password');
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error updating password');
   }
 });
 

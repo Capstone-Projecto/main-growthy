@@ -24,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
     species: DataTypes.STRING,
     genus: DataTypes.STRING,
     ordo: DataTypes.STRING,
-    plant_desc: DataTypes.STRING,
-    cultivation: DataTypes.STRING,
+    plant_desc: DataTypes.TEXT,
+    cultivation: DataTypes.TEXT,
     plant_disease: DataTypes.STRING,
-    prevention: DataTypes.STRING,
+    prevention: DataTypes.TEXT,
     difficulty: DataTypes.STRING,
     price: DataTypes.INTEGER,
     plant_images: DataTypes.STRING

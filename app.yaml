@@ -1,11 +1,3 @@
 runtime: nodejs16
 service: backend
-
-env_variables:
-  JWT_SECRET = growthy-secret
-  PORT = 3000
-  DB_HOST = 34.101.251.108
-  DB_USERNAME = root
-  DB_PASSWORD = growthybangkit123
-  DB_DATABASE = growthy-db
-  GCS_BUCKET_NAME = profile-user
+entrypoint: node app.js

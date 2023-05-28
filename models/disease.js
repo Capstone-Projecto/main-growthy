@@ -23,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
     disease_local_name: DataTypes.STRING,
     target: DataTypes.STRING,
     scientic_name: DataTypes.STRING,
-    disease_desc: DataTypes.STRING,
-    symptoms: DataTypes.STRING,
-    prevention: DataTypes.STRING,
-    causes: DataTypes.STRING,
+    disease_desc: DataTypes.TEXT,
+    symptoms: DataTypes.TEXT,
+    prevention: DataTypes.TEXT,
+    causes: DataTypes.TEXT,
     potention: DataTypes.STRING,
-    treatment: DataTypes.STRING,
+    treatment: DataTypes.TEXT,
     disease_images: DataTypes.STRING
   }, {
     sequelize,

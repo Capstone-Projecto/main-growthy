@@ -1,4 +1,5 @@
-const route = require('express').Router();
+const { Router } = require('express');
+const route = Router();
 const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const plantsRoute = require('./plants.route');

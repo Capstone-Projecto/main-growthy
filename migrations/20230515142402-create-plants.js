@@ -39,13 +39,13 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      plant_images1: {
+      plant_img_normal: {
         type: Sequelize.STRING
       },
-      plant_images2: {
+      plant_img_wide: {
         type: Sequelize.STRING
       },
-      plant_images3: {
+      plant_img_zoom: {
         type: Sequelize.STRING
       },
       createdAt: {

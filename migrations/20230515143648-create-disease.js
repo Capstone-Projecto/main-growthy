@@ -36,13 +36,13 @@ module.exports = {
       treatment: {
         type: Sequelize.TEXT
       },
-      disease_images1: {
+      disease_img_normal: {
         type: Sequelize.STRING
       },
-      disease_images2: {
+      disease_img_wide: {
         type: Sequelize.STRING
       },
-      disease_images3: {
+      disease_img_zoom: {
         type: Sequelize.STRING
       },
       createdAt: {

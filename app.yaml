@@ -1,3 +1,10 @@
 runtime: nodejs16
 service: backend
 entrypoint: node app.js
+
+env_variables:
+  JWT_SECRET: "JWT_SECRET"
+  DB_HOST: 34.101.70.210
+  DB_USER: "root"
+  DB_PASSWORD: "growthy123"
+  DB_NAME: "growthydb"

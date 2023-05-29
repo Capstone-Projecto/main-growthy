@@ -29,7 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     causes: DataTypes.TEXT,
     potention: DataTypes.STRING,
     treatment: DataTypes.TEXT,
-    disease_images: DataTypes.STRING
+    disease_img_normal: DataTypes.STRING,
+    disease_img_wide: DataTypes.STRING,
+    disease_img_zoom: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'disease',

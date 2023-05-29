@@ -47,7 +47,7 @@ route.get('/diseases/:id', async (req, res) => {
     if (specificDisease) {
       res.send(specificDisease);
     } else {
-      res.status(404).send('Penyakit tidak ditemukan');
+      res.status(404).send('Disease not found');
     }
   } catch (error) {
     console.log(error);

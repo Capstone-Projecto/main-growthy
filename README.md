@@ -47,9 +47,9 @@ Currently we still developing the Apps. Stay tune!
    - Firebase (Authentication)
    - TensorFlow Lite (Machine Learning)
 3. <b>Cloud Computing</b>
-   - Cloud SQL (Server Database)
-   - App Engine (Server API)
-   - Express JS
+   - Cloud SQL (Fully managed database service provided by Google Cloud Platform, using MYSQL)
+   - App Engine (Service for deploying growthy-backend provided by GCP)
+   - Node.js (Develop server-side applications using JavaScript)
 
 ## Getting Started
 

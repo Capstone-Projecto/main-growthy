@@ -48,6 +48,7 @@ Currently we still developing the Apps. Stay tune!
    - TensorFlow Lite (Machine Learning)
 3. <b>Cloud Computing</b>
    - Cloud SQL (Fully managed database service provided by Google Cloud Platform, using MYSQL)
+   - Cloud Storage (A secure, scalable, and disaster-resistant object storage service provided by Google Cloud Platform)
    - App Engine (Service for deploying growthy-backend provided by GCP)
    - Node.js (Develop server-side applications using JavaScript)
 

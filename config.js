@@ -5,7 +5,7 @@ const {Strategy} = require('passport-google-oauth2');
 passport.use(new Strategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://backend-dot-growthy-app.et.r.appspot.comauth/google',
+    callbackURL: 'https://backend-dot-growthy-app.et.r.appspot.com/auth/google',
     passReqToCallback: true
 
 }, (request, accessToken, refreshToken, profile, done) => {

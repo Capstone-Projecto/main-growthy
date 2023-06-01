@@ -3,6 +3,49 @@ const saltRounds = 10;
 const { users } = require('../models');
 const route = require("express").Router();
 const jwt = require('jsonwebtoken');
+require('../config.js');
+const passport = require('passport');
+
+// Endpoint for Google authentication
+route.get('/google', passport.authenticate('google', {
+  scope: ['profile', 'email'],
+  successRedirect: '/auth/google/protected',
+  failureRedirect: '/auth/google/failure'
+}));
+
+// Endpoint called after successful Google authentication
+route.get('/google/protected', async(req, res) => {
+  const name = req.user.displayName;
+  const email = req.user.email;
+  const avatar = req.user.picture;
+
+  await users.findOrCreate({
+    where : { name: name, email: email, avatar: avatar}
+  });
+  const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
+  return res.redirect(`/auth/google/success/${token}`);
+});
+
+// Endpoint called after successful Google authentication
+route.get('/google/success/:token', (req, res) => {
+  res.send({
+    message: 'Login success',
+    token: req.params.token
+  });
+});
+
+// Endpoint called when Google authentication fails
+route.get('/google/failure', (req, res) => {
+  res.send('Failed to login');
+});
+
+// Test endpoint for authentication with Google
+route.get('/test', (req, res) => {
+  res.send(
+    '<a href="/auth/google">Authenticate with Google</a>'
+  );
+});
+
 
 // Login logic
 route.post('/login', async (req, res) => {

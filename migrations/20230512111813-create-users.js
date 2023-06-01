@@ -21,26 +21,32 @@ module.exports = {
       },
 
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true
       },
 
       gender: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true
       },
 
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true
       },
 
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true
       },
       balance: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       // Foto Profil
       avatar: {
         type: Sequelize.STRING,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,

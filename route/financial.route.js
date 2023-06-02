@@ -248,4 +248,40 @@ route.get('/get_all_financial', async (req, res) => {
   }
 });
 
+// Route get all financial by id
+route.get('/get_all_financial/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    // Mengambil semua data keuangan pengguna
+    const userFinancial = await users_has_financial_dashboard.findAll({
+      where: { user_id: id },
+      include: [
+        {
+          model: financial_dashboard,
+          as: 'financial_dashboard',
+        },
+      ],
+    });
+
+    if (!userFinancial || userFinancial.length === 0) {
+      return res.send('Get financial failed');
+    } else {
+      const data = userFinancial.map((item) => {
+        return item.financial_dashboard;
+      });
+
+      const { balance } = await users.findOne({ where: { id: id } });
+
+      return res.send({
+        message: 'Get financial success',
+        balance: balance,
+        data: data,
+      });
+    }
+  } catch (error) {
+    return res.send('Get financial failed');
+  }
+});
+
 module.exports = route;

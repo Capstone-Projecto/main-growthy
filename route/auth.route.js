@@ -25,6 +25,10 @@ route.get(
       });
 
       const token = generateAuthToken(user);
+      res.send({
+        message: 'Login success',
+        token: req.params.token
+      });
       res.redirect(`/auth/google/success/${token}`);
     } catch (error) {
       console.error(error);

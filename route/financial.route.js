@@ -15,21 +15,21 @@ route.post('/add_financial', async (req, res) => {
     const user = await users.findOne({ where: { id: id } });
     if (user) {
       if (type === 'pemasukan') {
-        // Mengupdate saldo pengguna dengan menambahkan pemasukan
+        // Update user balance by adding the income
         const total = user.balance + pemasukan;
         await users.update({ balance: total }, { where: { id: id } });
       } else if (type === 'pengeluaran') {
-        // Memeriksa apakah saldo pengguna cukup untuk melakukan pengeluaran
+        // Check if user balance is sufficient for the expense
         if (user.balance < pengeluaran) {
-          return res.send('Your balance is not enough');
+          return res.json({ message: 'Your balance is not enough' });
         } else {
-          // Mengupdate saldo pengguna dengan mengurangi pengeluaran
+          // Update user balance by subtracting the expense
           const total = user.balance - pengeluaran;
           await users.update({ balance: total }, { where: { id: id } });
         }
       }
 
-      // Membuat entitas baru untuk financial dashboard
+      // Create a new entry in the financial dashboard
       const financial = await financial_dashboard.create({
         date_time: date_time,
         pemasukan: pemasukan,
@@ -39,20 +39,48 @@ route.post('/add_financial', async (req, res) => {
         type: type,
       });
 
-      // Menyimpan hubungan antara pengguna dan financial dashboard
+      // Save the relationship between the user and financial dashboard
       await users_has_financial_dashboard.create({
         user_id: id,
         financial_dashboard_id: financial.id,
       });
 
-      return res.send('Add financial success');
+      return res.json({ message: 'Add financial success' });
     }
   } catch (error) {
-    return res.send('Add financial failed');
+    return res.json({ message: 'Add financial failed' });
   }
 });
 
-// Route edit pemasukan
+// Route get financial by financial id
+route.get('/get_financial/:id', async (req, res) => {
+  const id = req.params.id;
+  
+  try {
+    // Get user financial data by financial id
+    const userFinancial = await users_has_financial_dashboard.findOne({
+      where: { financial_dashboard_id: id, user_id: req.user.id },
+      include: [
+        {
+          model: financial_dashboard,
+          as: 'financial_dashboard',
+        },
+      ],
+    });
+
+    if (!userFinancial) {
+      return res.json({ message: 'Get financial failed' });
+    } else {
+      const data = userFinancial.financial_dashboard;
+
+      return res.json({ message: 'Get financial success', data: data });
+    }
+  } catch (error) {
+    return res.json({ message: 'Get financial failed' });
+  }
+});
+
+// Route edit income
 route.put('/edit_financial/:id', async (req, res) => {
   const id = req.params.id;
   const date_time = req.body.date_time;
@@ -68,18 +96,18 @@ route.put('/edit_financial/:id', async (req, res) => {
 
   try {
     if (!isFinancialUser) {
-      return res.send('You are not authorized to edit this financial');
+      return res.json({ message: 'You are not authorized to edit this financial' });
     } else {
       const financial = await financial_dashboard.findOne({ where: { id: id } });
 
       if (!financial) {
-        return res.send('Financial not found');
+        return res.json({ message: 'Financial not found' });
       }
 
-      const previousPemasukan = financial.pemasukan; // Nilai pemasukan sebelumnya
-      const previousPengeluaran = financial.pengeluaran; // Nilai pengeluaran sebelumnya
+      const previousPemasukan = financial.pemasukan; // Previous income value
+      const previousPengeluaran = financial.pengeluaran; // Previous expense value
 
-      // Mengupdate financial dashboard dengan data baru
+      // Update financial dashboard with new data
       await financial_dashboard.update(
         {
           date_time: date_time,
@@ -96,22 +124,22 @@ route.put('/edit_financial/:id', async (req, res) => {
       let total = user.balance;
 
       if (type === 'pemasukan') {
-        // Menghitung selisih antara nominal pemasukan baru dengan sebelumnya
+        // Calculate the difference between the new and previous income amount
         const difference = pemasukan - previousPemasukan;
         total += difference;
       } else if (type === 'pengeluaran') {
-        // Menghitung selisih antara nominal pengeluaran baru dengan sebelumnya
+        // Calculate the difference between the new and previous expense amount
         const difference = pengeluaran - previousPengeluaran;
         total -= difference;
       }
 
-      // Mengupdate saldo pengguna dengan saldo terbaru
+      // Update user balance with the latest balance
       await users.update({ balance: total }, { where: { id: req.user.id } });
 
-      return res.send('Financial successfully updated');
+      return res.json({ message: 'Financial successfully updated' });
     }
   } catch (error) {
-    return res.send('Edit financial failed');
+    return res.json({ message: 'Edit financial failed' });
   }
 });
 
@@ -125,35 +153,35 @@ route.delete('/delete_financial/:id', async (req, res) => {
 
   try {
     if (!isFinancialUser) {
-      return res.send('You are not authorized to delete this financial');
+      return res.json({ message: 'You are not authorized to delete this financial' });
     } else {
       const userFinancial = await financial_dashboard.findOne({ where: { id: id } });
       const user = await users.findOne({ where: { id: req.user.id } });
 
       if (userFinancial.type === 'pemasukan') {
-        // Mengembalikan saldo dengan menambahkan pemasukan yang dihapus
+        // Return balance by adding the deleted income
         const total = user.balance + userFinancial.pemasukan;
         await users.update({ balance: total }, { where: { id: req.user.id } });
       } else if (userFinancial.type === 'pengeluaran') {
-        // Mengembalikan saldo dengan mengurangi pengeluaran yang dihapus
+        // Return balance by subtracting the deleted expense
         const total = user.balance - userFinancial.pengeluaran;
         await users.update({ balance: total }, { where: { id: req.user.id } });
       }
 
-      // Menghapus entitas keuangan dari financial dashboard
+      // Delete financial entity from the financial dashboard
       await financial_dashboard.destroy({ where: { id: id } });
 
-      return res.send('Financial successfully deleted');
+      return res.json({ message: 'Financial successfully deleted' });
     }
   } catch (error) {
-    return res.send('Delete financial failed');
+    return res.json({ message: 'Delete financial failed' });
   }
 });
 
-// Route get pemasukan
+// Route get income
 route.get('/get_pemasukan', async (req, res) => {
   try {
-    // Mengambil data pemasukan pengguna
+    // Get user income data
     const userFinancial = await users_has_financial_dashboard.findAll({
       where: { user_id: req.user.id },
       include: [
@@ -166,26 +194,26 @@ route.get('/get_pemasukan', async (req, res) => {
     });
 
     if (!userFinancial) {
-      return res.send('Get financial failed');
+      return res.json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
       });
 
-      return res.send({
+      return res.json({
         message: 'Get financial success',
         data: data,
       });
     }
   } catch (error) {
-    return res.send('Get financial failed');
+    return res.json({ message: 'Get financial failed' });
   }
 });
 
-// Route get pengeluaran
+// Route get expenses
 route.get('/get_pengeluaran', async (req, res) => {
   try {
-    // Mengambil data pengeluaran pengguna
+    // Get user expense data
     const userFinancial = await users_has_financial_dashboard.findAll({
       where: { user_id: req.user.id },
       include: [
@@ -198,26 +226,26 @@ route.get('/get_pengeluaran', async (req, res) => {
     });
 
     if (!userFinancial || userFinancial.length === 0) {
-      return res.send('Get financial failed');
+      return res.json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
       });
 
-      return res.send({
+      return res.json({
         message: 'Get financial success',
         data: data,
       });
     }
   } catch (error) {
-    return res.send('Get financial failed');
+    return res.json({ message: 'Get financial failed' });
   }
 });
 
 // Route get all financial
 route.get('/get_all_financial', async (req, res) => {
   try {
-    // Mengambil semua data keuangan pengguna
+    // Get all user financial data
     const userFinancial = await users_has_financial_dashboard.findAll({
       where: { user_id: req.user.id },
       include: [
@@ -229,7 +257,7 @@ route.get('/get_all_financial', async (req, res) => {
     });
 
     if (!userFinancial || userFinancial.length === 0) {
-      return res.send('Get financial failed');
+      return res.json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -237,23 +265,23 @@ route.get('/get_all_financial', async (req, res) => {
 
       const { balance } = await users.findOne({ where: { id: req.user.id } });
 
-      return res.send({
+      return res.json({
         message: 'Get financial success',
         balance: balance,
         data: data,
       });
     }
   } catch (error) {
-    return res.send('Get financial failed');
+    return res.json({ message: 'Get financial failed' });
   }
 });
 
-// Route get all financial by id
+// Route get all financial by user id
 route.get('/get_all_financial/:id', async (req, res) => {
   const id = req.params.id;
 
   try {
-    // Mengambil semua data keuangan pengguna
+    // Get all user financial data
     const userFinancial = await users_has_financial_dashboard.findAll({
       where: { user_id: id },
       include: [
@@ -265,7 +293,7 @@ route.get('/get_all_financial/:id', async (req, res) => {
     });
 
     if (!userFinancial || userFinancial.length === 0) {
-      return res.send('Get financial failed');
+      return res.json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -273,14 +301,14 @@ route.get('/get_all_financial/:id', async (req, res) => {
 
       const { balance } = await users.findOne({ where: { id: id } });
 
-      return res.send({
+      return res.json({
         message: 'Get financial success',
         balance: balance,
         data: data,
       });
     }
   } catch (error) {
-    return res.send('Get financial failed');
+    return res.json({ message: 'Get financial failed' });
   }
 });
 

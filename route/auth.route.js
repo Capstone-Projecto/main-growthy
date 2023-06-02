@@ -14,13 +14,13 @@ route.get('/google', passport.authenticate('google', {
 }));
 
 // Endpoint called after successful Google authentication
-route.get('/google/protected', async(req, res) => {
+route.get('/google/protected', async (req, res) => {
   const name = req.user.displayName;
   const email = req.user.email;
   const avatar = req.user.picture;
 
   await users.findOrCreate({
-    where : { name: name, email: email, avatar: avatar}
+    where: { name: name, email: email, avatar: avatar }
   });
   const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
   return res.redirect(`/auth/google/success/${token}`);
@@ -45,7 +45,6 @@ route.get('/test', (req, res) => {
     '<a href="/auth/google">Authenticate with Google</a>'
   );
 });
-
 
 // Login logic
 route.post('/login', async (req, res) => {

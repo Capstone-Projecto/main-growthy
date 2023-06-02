@@ -3,24 +3,24 @@ const route = require("express").Router();
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
 
-// Konfigurasi multer untuk mengunggah file
+// Configure multer for file upload
 const multerUpload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 5 * 1024 * 1024, // Batas ukuran file (dalam byte) 5MB
+    fileSize: 5 * 1024 * 1024, // 5MB file size limit
   },
 });
 
-// Membuat objek Storage menggunakan projectId dan keyFilename
+// Create Storage object using projectId and keyFilename
 const storage = new Storage({
   projectId: process.env.GCP_PROJECT_ID,
   keyFilename: process.env.STORAGE_CREDENTIALS,
 });
 
-// Membuat objek bucket menggunakan nama bucket yang diinginkan
+// Create bucket object with desired bucket name
 const bucket = storage.bucket('profile-user');
 
-// Membuat handler untuk mengunggah file menggunakan multer
+// Create handler for file upload using multer
 const uploadHandler = multerUpload.single('avatar');
 
 // Get all users
@@ -55,7 +55,7 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    // Jika ada file avatar yang diunggah, simpan di Google Cloud Storage
+    // If an avatar file is uploaded, save it to Google Cloud Storage
     let avatarUrl = user.avatar;
     if (req.file) {
       const file = req.file;
@@ -73,10 +73,10 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
       });
 
       blobStream.on('finish', async () => {
-        // Set URL avatar yang baru diunggah
+        // Set the newly uploaded avatar URL
         avatarUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
 
-        // Hapus file avatar yang lama jika ada
+        // Delete the old avatar file if it exists
         if (user.avatar) {
           const oldFilename = user.avatar.split('/').pop();
           const oldFile = bucket.file(oldFilename);
@@ -87,7 +87,7 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
           }
         }
 
-        // Perbarui profil pengguna
+        // Update user profile
         try {
           await user.update({
             name,
@@ -106,7 +106,7 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
 
       blobStream.end(file.buffer);
     } else {
-      // Jika tidak ada file avatar yang diunggah, langsung perbarui profil pengguna
+      // If no avatar file is uploaded, update user profile directly
       try {
         await user.update({
           name,
@@ -138,17 +138,17 @@ route.put('/edit_password', async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    // Periksa apakah password saat ini sesuai
+    // Check if current password matches
     const isPasswordMatch = bcrypt.compareSync(currentPassword, user.password);
     if (!isPasswordMatch) {
       return res.status(401).send('Current password is incorrect');
     }
 
-    // Hash password baru
+    // Hash the new password
     const salt = bcrypt.genSaltSync(saltRounds);
     const hashedPassword = bcrypt.hashSync(newPassword, salt);
 
-    // Perbarui password pengguna
+    // Update user password
     try {
       await user.update({
         password: hashedPassword

@@ -2,7 +2,7 @@ require('dotenv').config();
 const { disease, plants, plants_has_disease } = require('../models');
 const route = require("express").Router();
 
-// Mendapatkan semua penyakit tanaman beserta tanaman terkait
+// Get all diseases with related plants
 route.get('/diseases', async (req, res) => {
   try {
     const allDiseases = await disease.findAll({
@@ -25,7 +25,7 @@ route.get('/diseases', async (req, res) => {
   }
 });
 
-// Mendapatkan penyakit spesifik berdasarkan ID penyakit
+// Get specific disease by disease ID
 route.get('/diseases/:id', async (req, res) => {
   const diseaseId = req.params.id;
 

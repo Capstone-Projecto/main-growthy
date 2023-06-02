@@ -6,36 +6,32 @@ const passport = require('passport');
 require('../config.js');
 
 // Endpoint for Google authentication
-route.get(
-  '/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
+route.get('/google', passport.authenticate('google', {
+  scope: ['profile', 'email'],
+  successRedirect: '/auth/google/protected',
+  failureRedirect: '/auth/google/failure'
+}));
 
 // Endpoint called after successful Google authentication
-route.get(
-  '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/auth/google/failure' }),
-  async (req, res) => {
-    const { id, displayName: name, email, picture: avatar } = req.user;
+route.get('/google/protected', async(req, res) => {
+  const name = req.user.displayName;
+  const email = req.user.email;
+  const avatar = req.user.picture;
 
-    try {
-      const [user, created] = await users.findOrCreate({
-        where: { id },
-        defaults: { name, email, avatar }
-      });
+  await users.findOrCreate({
+    where : { name: name, email: email, avatar: avatar}
+  });
+  const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
+  return res.redirect(`/auth/google/success/${token}`);
+});
 
-      const token = generateAuthToken(user);
-      res.send({
-        message: 'Login success',
-        token: req.params.token
-      });
-      res.redirect(`/auth/google/success/${token}`);
-    } catch (error) {
-      console.error(error);
-      res.redirect('/auth/google/failure');
-    }
-  }
-);
+// Endpoint called after successful Google authentication
+route.get('/google/success/:token', (req, res) => {
+  res.send({
+    message: 'Login success',
+    token: req.params.token
+  });
+});
 
 // Endpoint called when Google authentication fails
 route.get('/google/failure', (req, res) => {

@@ -55,4 +55,34 @@ route.get('/plants/:id', async (req, res) => {
   }
 });
 
+// Get specific plant by detected plant name
+route.get('/plants/name/:name', async (req, res) => {
+  const detectedPlantName = req.params.name;
+
+  try {
+    const detectedPlant = await plants.findOne({
+      where: { name: detectedPlantName },
+      include: [
+        {
+          model: disease,
+          as: 'disease',
+          through: {
+            model: plants_has_disease,
+            attributes: []
+          }
+        }
+      ]
+    });
+
+    if (detectedPlant) {
+      res.send(detectedPlant);
+    } else {
+      res.status(404).send('Plant not found');
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 module.exports = route;

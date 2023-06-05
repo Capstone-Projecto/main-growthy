@@ -45,11 +45,11 @@ route.get('/users', async (req, res) => {
   }
 });
 
-// Get user profile
+// Get user profile by ID
 route.get('/profile/:id', async (req, res) => {
-  const userId = req.params.id;
+  const { id } = req.params;
   try {
-    const userProfile = await users.findByPk(userId, {
+    const userProfile = await users.findByPk(id, {
       include: [
         {
           model: financial_dashboard,
@@ -72,9 +72,10 @@ route.get('/profile/:id', async (req, res) => {
   }
 });
 
-// Edit profile
-route.put('/edit_profile', uploadHandler, async (req, res) => {
-  const { id, name, email, gender, phone, address } = req.body;
+// Update user profile by ID
+route.put('/edit_profile/:id', uploadHandler, async (req, res) => {
+  const { id } = req.params;
+  const { name, email, gender, phone, address } = req.body;
 
   try {
     const user = await users.findByPk(id);
@@ -155,9 +156,10 @@ route.put('/edit_profile', uploadHandler, async (req, res) => {
   }
 });
 
-// Edit password
-route.put('/edit_password', async (req, res) => {
-  const { id, currentPassword, newPassword } = req.body;
+// Update user password by ID
+route.put('/password/:id', async (req, res) => {
+  const { id } = req.params;
+  const { currentPassword, newPassword } = req.body;
 
   try {
     const user = await users.findByPk(id);

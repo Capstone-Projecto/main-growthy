@@ -45,6 +45,33 @@ route.get('/users', async (req, res) => {
   }
 });
 
+// Get user profile
+route.get('/profile/:id', async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const userProfile = await users.findByPk(userId, {
+      include: [
+        {
+          model: financial_dashboard,
+          as: "financial_dashboard",
+          through: {
+            model: users_has_financial_dashboard,
+            attributes: []
+          }
+        }
+      ]
+    });
+    if (userProfile) {
+      res.send(userProfile);
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error retrieving user profile');
+  }
+});
+
 // Edit profile
 route.put('/edit_profile', uploadHandler, async (req, res) => {
   const { id, name, email, gender, phone, address } = req.body;

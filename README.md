@@ -8,7 +8,8 @@ Explanation for each URL that can be used :
 
 **Soon**
 - ERD
-![ERD Growthy](https://github.com/Capstone-Projecto/main-growthy/assets/117957014/c7c81e2e-d235-47af-a92c-efe58b2585c6)
+![GROWTHY (2)](https://github.com/Capstone-Projecto/main-growthy/assets/117957014/88d56d95-fe24-42a2-9bfa-efeb73c37899)
+
 
 - List API
 - Used URL, endpoint, etc 

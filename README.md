@@ -13,6 +13,45 @@ Explanation for each URL that can be used :
 
 - List API
 
+**Index.js**
+
+Base URL
+
+The base URL for the endpoints is ‘/’,
+
+Endpoints 
+
+Authentication Routes
+
+Base URL	 : ‘/auth’
+Route Handler	 : ‘authRoute’
+Description	 : Handles authentication-related routes.
+
+User Routes
+
+Base URL	: ‘/user’
+Middleware	: ‘verifiedToken’
+Route Handler   : ‘userRoute’
+Description        : Handles user-related routes. Requires authentication.
+
+Plant Routes 
+
+Base URL	: ‘/plant’
+Route Handler	: ‘plantsRoute’
+Description	: Handles routes related to plants. 
+
+Disease Routes 
+
+Base URL	: ‘/disease’
+Middleware	: ‘diseaseRoute’
+Description	: Handles routes related to diseases. 
+
+Financial Routes
+
+Base URL	: ‘/financial’
+Middleware	: ‘verifiedToken’
+Route Handler   : ‘financialRoute’
+Description	: Handles routes related to financial operations. Requires authentication
 
 
 - Used URL, endpoint, etc 

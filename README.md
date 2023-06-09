@@ -307,7 +307,7 @@ Base URL
 
 <br>
 
-#### Get user profile by ID
+#### Get User Profile by ID
 
 **Method :**
 
@@ -333,6 +333,87 @@ Base URL
 
 <br>
 
+#### Update User Profile by ID
+
+**Method :**
+
+> PUT
+
+**Base URL :**
+
+> /edit_profile/:id
+
+**Description :**
+
+> Updates the profile data for a specific user identified by the provided ‘id’ parameter.
+
+**URL Parameters :**
+
+> id    : The unique identifier of the user.
+
+**Request Body:**
+
+- name     : (optional) Updated name of the user.
+- email    : (optional) Updated email of the user.
+- gender   : (optional) Updated gender of the user.
+- phone    : (optional) Updated phone number of the user.
+- address  : (optional) Updated address of the user.
+- avatar   : (optional) Updated avatar file to be uploaded.
+   - File size limit : 5 MB
+   - Field name      : avatar
+   
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message indicating that the profile was updated successfully.
+
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body		      : Error message if the user with the specified ID was not found. 
+- Status Code : 500 (Internal Server Error)
+- Body		: Error message if there was an error updating the user profile or uploading the avatar file.
+
+<br>
+
+#### Update User Password by ID
+
+**Method :**
+
+> PUT
+
+**Base URL :**
+
+> /password /:id
+
+**Description :**
+
+> Updates the password for a specific user identified by the provided ‘id’ parameter.
+
+**URL Parameters :**
+
+> id    : The unique identifier of the user.
+
+**Request Body:**
+
+- currentPassword : The user’s current password.
+- newPassword     : The user’s new password.
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message indicating that the password was updated successfully.
+
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body		      : Error message if the user with the specified ID was not found. 
+- Status Code	: 401 (Unauthorized)
+- Body	      	: Error message if the current password provided is incorrect.
+- Status Code : 500 (Internal Server Error)
+- Body       	:Error message if there was an error updating the password. 
+
+<br>
 
 
 

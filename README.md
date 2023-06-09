@@ -175,7 +175,7 @@ Base URL
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		    : JSON object containing a success message and the JWT token
+- Body		      : JSON object containing a success message and the JWT token
 
 <br>
 
@@ -196,7 +196,7 @@ Base URL
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		    : Error message indicating the failure
+- Body		      : Error message indicating the failure
 
 <br>
 
@@ -217,7 +217,7 @@ Base URL
 **Response :**
 
 - Status Code : 200 (OK)
-- Body	    	: HTML content with a link to authenticate with Google
+- Body	      	: HTML content with a link to authenticate with Google
 
 <br>
 
@@ -243,11 +243,11 @@ Base URL
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		    : JSON object containing a success message and the generated JWT token
+- Body		      : JSON object containing a success message and the generated JWT token
 
 **Error Response :**
 - Status Code : 04 (Not Found)
-- Body		    : Error message if there was an internal server error
+- Body		      : Error message if there was an internal server error
 
 <br>
 
@@ -274,13 +274,65 @@ Base URL
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		    : JSON object containing a success message and the generated JWT token
+- Body		      : JSON object containing a success message and the generated JWT token
 
 **Error Response :**
 - Status Code : 04 (Not Found)
-- Body		    : Error message if there was an internal server error
+- Body		      : Error message if there was an internal server error
 
 <br>
+
+## User Route
+
+### User Endpoints
+
+#### Get All Users
+
+**Method :**
+
+> GET
+
+**Base URL :**
+
+> /users
+
+**Description :**
+
+> Retrieves all users 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : JSON array containing user data, including associated financial dashboards.
+
+<br>
+
+#### Get user profile by ID
+
+**Method :**
+
+> GET
+
+**Base URL :**
+
+> /profile/:id
+
+**Description :**
+
+> Retrieves a user’s profile by ID
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : JSON object containing the user’s profile, including associated financial dashboards.
+
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body		      : Error message if the user with the specified ID was not found.
+
+<br>
+
 
 
 

@@ -171,6 +171,11 @@ route.delete('/delete_financial/:id', async (req, res) => {
       // Delete financial entity from the financial dashboard
       await financial_dashboard.destroy({ where: { id: id } });
 
+      // Delete relationship between the user and financial dashboard
+      await users_has_financial_dashboard.destroy({
+        where: { financial_dashboard_id: id, user_id: req.user.id },
+      });
+
       return res.json({ message: 'Financial successfully deleted' });
     }
   } catch (error) {

@@ -3,7 +3,7 @@ const route = require("express").Router();
 
 // Route add financial
 route.post('/add_financial', async (req, res) => {
-  const id = req.user.id;
+  const userId = req.user.id;
   const date_time = req.body.date_time;
   const pemasukan = req.body.pemasukan;
   const pengeluaran = req.body.pengeluaran;
@@ -12,12 +12,12 @@ route.post('/add_financial', async (req, res) => {
   const type = req.body.type;
 
   try {
-    const user = await users.findOne({ where: { id: id } });
+    const user = await users.findOne({ where: { id: userId } });
     if (user) {
       if (type === 'pemasukan') {
         // Update user balance by adding the income
         const total = user.balance + pemasukan;
-        await users.update({ balance: total }, { where: { id: id } });
+        await users.update({ balance: total }, { where: { id: userId } });
       } else if (type === 'pengeluaran') {
         // Check if user balance is sufficient for the expense
         if (user.balance < pengeluaran) {
@@ -25,7 +25,7 @@ route.post('/add_financial', async (req, res) => {
         } else {
           // Update user balance by subtracting the expense
           const total = user.balance - pengeluaran;
-          await users.update({ balance: total }, { where: { id: id } });
+          await users.update({ balance: total }, { where: { id: userId } });
         }
       }
 
@@ -41,7 +41,7 @@ route.post('/add_financial', async (req, res) => {
 
       // Save the relationship between the user and financial dashboard
       await users_has_financial_dashboard.create({
-        user_id: id,
+        user_id: userId,
         financial_dashboard_id: financial.id,
       });
 

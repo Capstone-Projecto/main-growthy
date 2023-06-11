@@ -17,7 +17,7 @@ const storage = new Storage({
   keyFilename: process.env.STORAGE_CREDENTIALS,
 });
 
-// Create bucket object with desired bucket name
+// Create bucket object with the desired bucket name
 const bucket = storage.bucket('profile-user');
 
 // Create handler for file upload using multer
@@ -38,10 +38,10 @@ route.get('/users', async (req, res) => {
         }
       ]
     });
-    res.send(usersData);
+    res.json(usersData);
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error retrieving users data');
+    res.status(500).json({ error: 'Error retrieving users data' });
   }
 });
 
@@ -62,13 +62,13 @@ route.get('/profile/:id', async (req, res) => {
       ]
     });
     if (userProfile) {
-      res.send(userProfile);
+      res.json(userProfile);
     } else {
-      res.status(404).send('User not found');
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error retrieving user profile');
+    res.status(500).json({ error: 'Error retrieving user profile' });
   }
 });
 
@@ -80,7 +80,7 @@ route.put('/edit_profile/:id', uploadHandler, async (req, res) => {
   try {
     const user = await users.findByPk(id);
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // If an avatar file is uploaded, save it to Google Cloud Storage
@@ -97,7 +97,7 @@ route.put('/edit_profile/:id', uploadHandler, async (req, res) => {
 
       blobStream.on('error', (err) => {
         console.log(err);
-        res.status(500).send('Error uploading avatar');
+        res.status(500).json({ error: 'Error uploading avatar' });
       });
 
       blobStream.on('finish', async () => {
@@ -125,10 +125,10 @@ route.put('/edit_profile/:id', uploadHandler, async (req, res) => {
             address,
             avatar: avatarUrl
           });
-          res.send('Profile updated successfully');
+          res.json({ message: 'Profile updated successfully' });
         } catch (error) {
           console.log(error);
-          res.status(500).send('Error updating profile');
+          res.status(500).json({ error: 'Error updating profile' });
         }
       });
 
@@ -144,15 +144,15 @@ route.put('/edit_profile/:id', uploadHandler, async (req, res) => {
           address,
           avatar: avatarUrl
         });
-        res.send('Profile updated successfully');
+        res.json({ message: 'Profile updated successfully' });
       } catch (error) {
         console.log(error);
-        res.status(500).send('Error updating profile');
+        res.status(500).json({ error: 'Error updating profile' });
       }
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error updating profile');
+    res.status(500).json({ error: 'Error updating profile' });
   }
 });
 
@@ -164,13 +164,13 @@ route.put('/password/:id', async (req, res) => {
   try {
     const user = await users.findByPk(id);
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    // Check if current password matches
+    // Check if the current password matches
     const isPasswordMatch = bcrypt.compareSync(currentPassword, user.password);
     if (!isPasswordMatch) {
-      return res.status(401).send('Current password is incorrect');
+      return res.status(401).json({ error: 'Current password is incorrect' });
     }
 
     // Hash the new password
@@ -182,14 +182,14 @@ route.put('/password/:id', async (req, res) => {
       await user.update({
         password: hashedPassword
       });
-      res.send('Password updated successfully');
+      res.json({ message: 'Password updated successfully' });
     } catch (error) {
       console.log(error);
-      res.status(500).send('Error updating password');
+      res.status(500).json({ error: 'Error updating password' });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error updating password');
+    res.status(500).json({ error: 'Error updating password' });
   }
 });
 

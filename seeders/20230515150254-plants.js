@@ -200,7 +200,44 @@ module.exports = {
         plant_img_zoom: 'https://storage.googleapis.com/plants-img/rosa%20chinensis/rosa%20chinensis%20zoom.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
-      }]);
+      },
+      {
+        local_name: 'Bunga Matahari',
+        species: 'Helianthus annuus',
+        genus: 'Helianthus',
+        ordo: 'Asterales',
+        plant_desc: 'Helianthus annuus adalah tanaman tahunan yang biasanya tumbuh tinggi dengan batang tegak dan daun besar yang berbentuk hati. Bunganya berukuran besar dan memiliki kelopak berwarna kuning cerah dengan pusat cokelat atau hitam yang dikenal sebagai kepala bunga. Bunga matahari dikenal karena kecenderungan bunganya yang selalu menghadap ke arah matahari.',
+        cultivation: 'Tanam biji bunga matahari langsung di tempat yang terbuka setelah bahaya embun beku berlalu. Tanam biji pada kedalaman sekitar 2,5 cm dan jaga agar jarak antar tanaman sekitar 45-60 cm.',
+        plant_disease: 'Beberapa penyakit yang mungkin menyerang tanaman Helianthus annuus antara lain penyakit jamur seperti embun tepung (powdery mildew) dan layu vertikilium (verticillium wilt).',
+        prevention: 'Pencegahan penyakit dapat dilakukan dengan menyediakan sirkulasi udara yang baik di sekitar tanaman, menjaga kelembaban rendah, menghindari overwatering, dan memilih varietas yang tahan terhadap penyakit.',
+        difficulty: 'Mudah',
+        price: 30000,
+        // gambar tanaman 3 buah
+        plant_img_normal: 'https://storage.googleapis.com/plants-img/helianthus%20annuus/helianthus%20annus%20normal.jpg',
+        plant_img_wide: 'https://storage.googleapis.com/plants-img/helianthus%20annuus/helianthus%20annus%20wide.jpg',
+        plant_img_zoom: 'https://storage.googleapis.com/plants-img/helianthus%20annuus/helianthus%20annus%20zoom.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+    },
+    {
+        local_name: 'Anggrek Bulan',
+        species: 'Phalaenopsis amabilis',
+        genus: 'Phalaenopsis',
+        ordo: 'Asparagales',
+        plant_desc: 'Phalaenopsis amabilis adalah anggrek epifitik yang memiliki daun berwarna hijau kebiruan dan bunga yang indah. Bunga-bunga anggrek bulan umumnya berwarna putih dengan lipatan atau bercak berwarna kuning atau merah muda di bagian tengahnya. Anggrek ini terkenal karena keindahan bunga-bunganya yang anggun dan tahan lama.',
+        cultivation: 'Phalaenopsis amabilis biasanya ditanam dalam pot dengan campuran media tanam yang terdiri dari serat kayu, potongan kulit pohon, atau sphagnum moss. Pastikan media tanam memiliki drainase yang baik. Anggrek bulan juga membutuhkan cahaya yang cukup, tetapi tidak langsung terkena sinar matahari yang terlalu terik.',
+        plant_disease: 'Beberapa penyakit yang mungkin menyerang Phalaenopsis amabilis adalah penyakit layu, busuk akar, atau infeksi jamur seperti embun tepung.',
+        prevention: 'Pastikan sirkulasi udara yang baik, hindari kelembaban berlebih, dan hindari penyiraman yang berlebihan untuk mencegah penyakit pada anggrek bulan. Juga, sterilkan peralatan penanaman dan hindari kontaminasi silang antara tanaman.',
+        difficulty: 'Mudah',
+        price: 50000,
+        // gambar tanaman 3 buah
+        plant_img_normal: 'https://storage.googleapis.com/plants-img/phalaenopsis%20amabilis/Phalaenopsis%20amabilis%20normal.jpg',
+        plant_img_wide: 'https://storage.googleapis.com/plants-img/phalaenopsis%20amabilis/Phalaenopsis%20amabilis%20wide.jpg',
+        plant_img_zoom: 'https://storage.googleapis.com/plants-img/phalaenopsis%20amabilis/Phalaenopsis%20amabilis%20zoom.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+    }
+    ]);
   },
 
   async down (queryInterface, Sequelize) {

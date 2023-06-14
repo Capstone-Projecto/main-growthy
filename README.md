@@ -1,6 +1,6 @@
 # Cloud Computing Path
 
-Creating **RESTful APIs** using NodeJS and deploying to [Google Cloud Platform](https://cloud.google.com) by using [Google App Engine](https://cloud.google.com/appengine) and [Google Compute Engine](https://cloud.google.com/compute) for connection between android application and database. Using Cloud SQL for creating the database server, and Cloud Storage for saving user data.
+Creating **RESTful APIs** using NodeJS (Express) and deploying to [Google Cloud Platform](https://cloud.google.com) by using [Google App Engine](https://cloud.google.com/appengine) for connection between android application and database. Using Cloud SQL and Sequelize for creating the database server, and Cloud Storage for images storage.
 
 # ERD
 ![GROWTHY (2)](https://github.com/Capstone-Projecto/main-growthy/assets/117957014/88d56d95-fe24-42a2-9bfa-efeb73c37899)
@@ -246,7 +246,7 @@ Base URL
 - Body		      : JSON object containing a success message and the generated JWT token
 
 **Error Response :**
-- Status Code : 04 (Not Found)
+- Status Code : 404 (Not Found)
 - Body		      : Error message if there was an internal server error
 
 <br>
@@ -277,7 +277,7 @@ Base URL
 - Body		      : JSON object containing a success message and the generated JWT token
 
 **Error Response :**
-- Status Code : 04 (Not Found)
+- Status Code : 404 (Not Found)
 - Body		      : Error message if there was an internal server error
 
 <br>

@@ -13,13 +13,13 @@ route.get('/google', passport.authenticate('google', {
 }));
 
 // Endpoint called after successful Google authentication
-route.get('/google/protected', async(req, res) => {
+route.get('/google/protected', async (req, res) => {
   const name = req.user.displayName;
   const email = req.user.email;
   const avatar = req.user.picture;
 
   await users.findOrCreate({
-    where : { name: name, email: email, avatar: avatar}
+    where: { name: name, email: email, avatar: avatar }
   });
   const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
   return res.redirect(`/auth/google/success/${token}`);
@@ -62,7 +62,7 @@ route.post('/login', async (req, res) => {
     }
 
     const token = generateAuthToken(user);
-    return res.json({ message: 'Login success', token });
+    return res.json({ message: 'Login success', token, name: user.name });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal Server Error' });
@@ -90,7 +90,7 @@ route.post('/register', async (req, res) => {
     });
 
     const token = generateAuthToken(user);
-    return res.json({ message: 'Register success', token });
+    return res.json({ message: 'Register success', token, name: user.name });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal Server Error' });

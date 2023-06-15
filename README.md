@@ -24,7 +24,7 @@ Base URL
 
 **Method :**
 
-> USE
+> `USE`
 
 **Description :**
 
@@ -40,7 +40,7 @@ Base URL
 
 **Method :**
 
-> USE
+> `USE`
 
 **Middleware :**
 
@@ -60,7 +60,7 @@ Base URL
 
 **Method :**
 
-> USE
+> `USE`
 
 **Description :**
 
@@ -76,7 +76,7 @@ Base URL
 
 **Method :**
 
-> USE
+> `USE`
 
 **Middleware :**
 
@@ -96,7 +96,7 @@ Base URL
 
 **Method :**
 
-> USE
+> `USE`
 
 **Middleware :**
 
@@ -116,7 +116,7 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
@@ -146,7 +146,7 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
@@ -168,7 +168,7 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 

@@ -525,11 +525,266 @@ Base URL
 
 <br>
 
+## Disease Route
 
+### Disease Endpoints
 
+#### Get All Diseases  
 
+**Method :**
 
+> `GET`
 
+**Base URL :**
 
+> /diseases
 
+**Description :**
+
+> Retrieves information for all diseases. 
+
+**Response :**
+
+> Status Code : 200 (OK)
+> Body		      :
+  - message : Success message
+  - data    : Array of disease objects containing information about each disease. The 'createdAt' and 'updatedAt' fields are excluded.
+
+**Error Response :**
+
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the diseases. 
+
+<br>
+
+#### Get specific disease by disease ID 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> /diseases/id/:id 
+
+**Description :**
+
+> Retrieves information about a specific disease identified by the provided 'id' parameter.
+
+**URL Parameters :**
+
+> id   : The Unique identifier of the disease. 
+
+**Response :**
+
+> Status Code : 200 (OK)
+> Body		      : Success message and the plant object.
+   - message  : Success message.
+   - data     : Object containing information about the specific disease. The createdAt and updatedAt fields are excluded.
+     
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the plant with the specified ID was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the disease. 
+
+<br>
+
+#### Get specific disease by disease ID 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> /diseases/name/:name
+
+**Description :**
+
+> Retrieves information about a specific disease identified by the provided 'name' parameter.
+
+**URL Parameters :**
+
+> name   : The name of the disease. 
+
+**Response :**
+
+> Status Code : 200 (OK)
+> Body		      : 
+   - message  : Success message.
+   - data     : Object containing information about the specific disease. The createdAt and updatedAt fields are excluded.
+     
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the disease with the specified name was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the disease. 
+
+<br>
+
+#### Get specific disease by disease ID 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> /diseases/name/:name
+
+**Description :**
+
+> Retrieves information about a specific disease identified by the provided 'name' parameter.
+
+**URL Parameters :**
+
+> name   : The name of the disease. 
+
+**Response :**
+
+> Status Code : 200 (OK)
+> Body		      : 
+   - message  : Success message.
+   - data     : Object containing information about the specific disease. The createdAt and updatedAt fields are excluded.
+     
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the disease with the specified name was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the disease. 
+
+<br>
+
+## Financial Route
+
+### Financial Endpoints
+
+#### Add Financial
+
+**Method :**
+
+> `POST`
+
+**Base URL :**
+
+> /add_financial
+
+**Request Body :**
+
+- date_time (string): Tanggal dan waktu transaksi (contoh: "2023-06-01 08:00:00")
+- pemasukan (number)         : Jumlah pemasukan
+- pengeluaran (number)       : Jumlah pengeluaran
+- desc_pemasukan (string)    : Deskripsi pemasukan
+- desc_pengeluaran (string)  : Deskripsi pengeluaran
+- type (string)              : Tipe transaksi ("pemasukan" atau "pengeluaran")
+
+**Response :**
+
+message (string)  : Pesan sukses atau gagal
+
+**Error Response :**
+
+- Status Code : 404 Not Found
+- message     : User tidak ditemukan
+- Status Code : 400 Bad Request
+- message     : Saldo Anda tidak mencukupi
+- Status Code : 500 Internal Server Error
+- message     : Gagal menambahkan data keuangan
+
+<br>
+
+#### Get Financial by Financial ID
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> /get_financial/:id 
+
+**Request Parameters :**
+
+> id (string) : ID data keuangan
+
+**Response :**
+
+- 'message' (string)  : Pesan sukses atau gagal
+- 'data' (object)     : Data keuangan yang sesuai dengan ID
+
+**Error Response :**
+
+- Status Code         : 404 Not Found
+- message             : Data keuangan tidak ditemukan
+- Status Code         : 500 Internal Server Error
+- message             : Gagal mendapatkan data keuangan
+
+<br>
+
+#### Edit Income 
+
+**Method :**
+
+> `PUT`
+
+**Base URL :**
+
+> /edit_financial/:id 
+
+**Request Parameters :**
+
+> id (string) : ID data keuangan
+
+**Request Body :**
+
+- `date_time` (string)  : Tanggal dan waktu transaksi yang baru (contoh: "2023-06-01 08:00:00")
+- `pemasukan` (number)        : Jumlah pemasukan yang baru
+- `pengeluaran` (number)      : Jumlah pengeluaran yang baru
+- `desc_pemasukan` (string)   : Deskripsi pemasukan yang baru
+- `desc_pengeluaran` (string) : Deskripsi pengeluaran yang baru
+- `type` (string)             : Tipe transaksi yang baru ("pemasukan" atau "pengeluaran")
+
+**Response :**
+
+- `message` (string)  : Pesan sukses atau gagal
+
+**Error Response :**
+
+- Status Code         : 403 Not Forbidden
+  `message`           : Anda tidak diizinkan untuk mengedit data keuangan ini
+- Status Code         : 404 Not Found
+  `message`           : Data keuangan tidak ditemukan 
+- Status Code         : 500 Internal Server Error
+  `message`           : Gagal mengedit data keuangan
+
+<br>
+
+#### Delete Financial
+
+**Method :**
+
+> `DELETE`
+
+**Base URL :**
+
+> /delete_financial/:id 
+
+**Request Parameters :**
+
+> `id` (string) : ID data keuangan
+
+**Response :**
+
+- `message` (string)  : Pesan sukses atau gagal
+
+**Error Response :**
+
+- Status Code         : 403 Not Forbidden
+  `message`           : Anda tidak diizinkan untuk menghapus data keuangan ini
+
+<br>
 

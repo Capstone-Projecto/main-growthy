@@ -1,24 +1,18 @@
 require('dotenv').config();
-const { disease, plants, plants_has_disease } = require('../models');
+const { disease } = require('../models');
 const route = require("express").Router();
 
-// Get all diseases with related plants
+// Get all diseases
 route.get('/diseases', async (req, res) => {
   try {
     const allDiseases = await disease.findAll({
-      include: [
-        {
-          model: plants,
-          as: 'plants',
-          through: {
-            model: plants_has_disease,
-            attributes: []
-          }
-        }
-      ]
+      attributes: { exclude: ['createdAt', 'updatedAt'] } // Exclude unnecessary fields
     });
 
-    res.json(allDiseases);
+    res.json({
+      message: 'Get diseases success',
+      data: allDiseases
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -26,26 +20,20 @@ route.get('/diseases', async (req, res) => {
 });
 
 // Get specific disease by disease ID
-route.get('/diseases/:id', async (req, res) => {
+route.get('/diseases/id/:id', async (req, res) => {
   const diseaseId = req.params.id;
 
   try {
     const specificDisease = await disease.findOne({
       where: { id: diseaseId },
-      include: [
-        {
-          model: plants,
-          as: 'plants',
-          through: {
-            model: plants_has_disease,
-            attributes: []
-          }
-        }
-      ]
+      attributes: { exclude: ['createdAt', 'updatedAt'] } // Exclude unnecessary fields
     });
 
     if (specificDisease) {
-      res.json(specificDisease);
+      res.json({
+        message: 'Get disease success',
+        data: specificDisease
+      });
     } else {
       res.status(404).json({ message: 'Disease not found' });
     }
@@ -62,20 +50,14 @@ route.get('/diseases/name/:name', async (req, res) => {
   try {
     const specificDisease = await disease.findOne({
       where: { name: diseaseName },
-      include: [
-        {
-          model: plants,
-          as: 'plants',
-          through: {
-            model: plants_has_disease,
-            attributes: []
-          }
-        }
-      ]
+      attributes: { exclude: ['createdAt', 'updatedAt'] } // Exclude unnecessary fields
     });
 
     if (specificDisease) {
-      res.json(specificDisease);
+      res.json({
+        message: 'Get disease success',
+        data: specificDisease
+      });
     } else {
       res.status(404).json({ message: 'Disease not found' });
     }

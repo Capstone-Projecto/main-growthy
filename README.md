@@ -545,10 +545,10 @@ Base URL
 
 **Response :**
 
-> Status Code : 200 (OK)
-> Body		      :
+- Status Code : 200 (OK)
+- Body		      :
   - message : Success message
-  - data    : Array of disease objects containing information about each disease. The 'createdAt' and 'updatedAt' fields are excluded.
+  - data    : Array of disease objects containing information about each disease. The `createdAt` and `updatedAt` fields are excluded.
 
 **Error Response :**
 
@@ -577,10 +577,10 @@ Base URL
 
 **Response :**
 
-> Status Code : 200 (OK)
-> Body		      : Success message and the plant object.
+- Status Code : 200 (OK)
+- Body		      : Success message and the plant object.
    - message  : Success message.
-   - data     : Object containing information about the specific disease. The createdAt and updatedAt fields are excluded.
+   - data     : Object containing information about the specific disease. The `createdAt` and `updatedAt` fields are excluded.
      
 **Error Response :**
 
@@ -611,10 +611,10 @@ Base URL
 
 **Response :**
 
-> Status Code : 200 (OK)
-> Body		      : 
+- Status Code : 200 (OK)
+- Body		      : 
    - message  : Success message.
-   - data     : Object containing information about the specific disease. The createdAt and updatedAt fields are excluded.
+   - data     : Object containing information about the specific disease. The `createdAt` and `updatedAt` fields are excluded.
      
 **Error Response :**
 
@@ -637,7 +637,7 @@ Base URL
 
 **Description :**
 
-> Retrieves information about a specific disease identified by the provided 'name' parameter.
+> Retrieves information about a specific disease identified by the provided `name` parameter.
 
 **URL Parameters :**
 
@@ -645,10 +645,10 @@ Base URL
 
 **Response :**
 
-> Status Code : 200 (OK)
-> Body		      : 
+- Status Code : 200 (OK)
+- Body		      : 
    - message  : Success message.
-   - data     : Object containing information about the specific disease. The createdAt and updatedAt fields are excluded.
+   - data     : Object containing information about the specific disease. The `createdAt` and `updatedAt` fields are excluded.
      
 **Error Response :**
 
@@ -713,8 +713,8 @@ Base URL
 
 **Response :**
 
-- 'message' (string)  : Pesan sukses atau gagal
-- 'data' (object)     : Data keuangan yang sesuai dengan ID
+- `message` (string)  : Pesan sukses atau gagal
+- `data` (object)     : Data keuangan yang sesuai dengan ID
 
 **Error Response :**
 
@@ -784,7 +784,7 @@ Base URL
 **Error Response :**
 
 - Status Code         : 403 Not Forbidden
-  `message`           : Anda tidak diizinkan untuk menghapus data keuangan ini
+  - `message`           : Anda tidak diizinkan untuk menghapus data keuangan ini
 
 <br>
 

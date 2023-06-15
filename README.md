@@ -431,6 +431,101 @@ Base URL
 
 <br>
 
+## Plant Route
+
+### Plant Endpoints
+
+#### Get All Plants 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> /plants
+
+**Description :**
+
+> Retrieves data for all plants. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message and an array of plant objects.
+
+**Error Response :**
+
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error.
+
+<br>
+
+#### Get Plant by ID
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> /plants/id/:id 
+
+**Description :**
+
+> Retrieves data for a specific plant based on the plant ID.
+
+**URL Parameters :**
+
+> id   : The ID of the plant. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message and the plant object.
+
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the plant with the specified ID was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error. 
+
+<br>
+
+#### Get Plant by name 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> /plants/name/:name  
+
+**Description :**
+
+> Retrieves data for a specific plant based on the plant name.
+
+**URL Parameters :**
+
+> name   : The name of the plant. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message and the plant object.
+
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the plant with the specified name was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error. 
+
+<br>
+
+
 
 
 

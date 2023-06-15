@@ -20,7 +20,7 @@ Base URL
 
 **Base URL :**
 
-> /auth
+> `/auth`
 
 **Method :**
 
@@ -36,7 +36,7 @@ Base URL
 
 **Base URL :**
 
-> /user
+> `/user`
 
 **Method :**
 
@@ -56,7 +56,7 @@ Base URL
 
 **Base URL :**
 
-> /plant
+> `/plant`
 
 **Method :**
 
@@ -72,7 +72,7 @@ Base URL
 
 **Base URL :**
 
-> /disease
+> `/disease`
 
 **Method :**
 
@@ -92,7 +92,7 @@ Base URL
 
 **Base URL :**
 
-> /financial
+> `/financial`
 
 **Method :**
 
@@ -120,7 +120,7 @@ Base URL
 
 **Base URL :**
 
-> /google
+> `/google`
 
 **Description :**
 
@@ -132,12 +132,12 @@ Base URL
 
 **Success Redirect :**
 
-- URL         : /auth/google/protected
+- URL         : `/auth/google/protected`
 - Description : Redirects the user to this URL after successful Google authentication.
 
 **Failure Redirect :**
 
-- URL         : /auth/google/failure
+- URL         : `/auth/google/failure`
 - Description : Redirects the user to this URL if Google authentication fails.
 
 <br>
@@ -150,7 +150,7 @@ Base URL
 
 **Base URL :**
 
-> /google/protected
+> `/google/protected`
 
 **Description :**
 
@@ -172,7 +172,7 @@ Base URL
 
 **Base URL :**
 
-> /google/success/:token
+> `/google/success/:token`
 
 **Description :**
 
@@ -180,7 +180,7 @@ Base URL
 
 **URL Parameters :**
 
-- token : The JWT token generated for the authenticated user.
+- `token` : The JWT token generated for the authenticated user.
 
 **Response :**
 
@@ -197,7 +197,7 @@ Base URL
 
 **Base URL :**
 
-> /google/failure
+> `/google/failure`
 
 **Description :**
 
@@ -218,7 +218,7 @@ Base URL
 
 **Base URL :**
 
-> /test
+> `/test`
 
 **Description :**
 
@@ -239,7 +239,7 @@ Base URL
 
 **Base URL :**
 
-> /login
+> `/login`
 
 **Description :**
 
@@ -247,8 +247,8 @@ Base URL
 
 **Request Body :**
 
-- Email     : Email of the user
-- Password  : Password of the user
+- `Email`     : Email of the user
+- `Password`  : Password of the user
 
 **Response :**
 
@@ -273,7 +273,7 @@ Base URL
 
 **Base URL :**
 
-> /register
+> `/register`
 
 **Description :**
 
@@ -281,9 +281,9 @@ Base URL
 
 **Request Body :**
 
-- Name      : Name of the user
-- Email     : Email of the user
-- Password  : Password of the user
+- `Name`      : Name of the user
+- `Email`     : Email of the user
+- `Password`  : Password of the user
 
 **Response :**
 
@@ -293,7 +293,7 @@ Base URL
 **Error Response :**
 - Status Code : 409 (Conflict)
 - Body		      : Error message if there was an internal server error
-- 
+  
 <br>
 
 ## User Route
@@ -308,7 +308,7 @@ Base URL
 
 **Base URL :**
 
-> /users
+> `/users`
 
 **Description :**
 
@@ -329,7 +329,7 @@ Base URL
 
 **Base URL :**
 
-> /profile/:id
+> `/profile/:id`
 
 **Description :**
 
@@ -337,7 +337,7 @@ Base URL
 
 **URL Parameters :**
 
-- id   : The ID of the user
+- `id`  : The ID of the user
   
 **Response :**
 
@@ -359,7 +359,7 @@ Base URL
 
 **Base URL :**
 
-> /edit_profile/:id
+> `/edit_profile/:id`
 
 **Description :**
 
@@ -371,12 +371,12 @@ Base URL
 
 **Request Body:**
 
-- name     :  Updated name of the user.
-- email    :  Updated email of the user.
-- gender   :  Updated gender of the user.
-- phone    :  Updated phone number of the user.
-- address  :  Updated address of the user.
-- avatar   :  Updated avatar file to be uploaded.
+- `name`     :  Updated name of the user.
+- `email`    :  Updated email of the user.
+- `gender`  :  Updated gender of the user.
+- `phone`    :  Updated phone number of the user.
+- `address`  :  Updated address of the user.
+- `avatar`   :  Updated avatar file to be uploaded.
    
 **Response :**
 
@@ -400,7 +400,7 @@ Base URL
 
 **Base URL :**
 
-> /password /:id
+> `/password /:id`
 
 **Description :**
 
@@ -408,12 +408,12 @@ Base URL
 
 **URL Parameters :**
 
-> id    : The ID of the user.
+> `id`    : The ID of the user.
 
 **Request Body:**
 
-- currentPassword : Current password of the user.
-- newPassword     : New password to be set for the user.
+- `currentPassword` : Current password of the user.
+- `newPassword`     : New password to be set for the user.
 
 **Response :**
 
@@ -443,7 +443,7 @@ Base URL
 
 **Base URL :**
 
-> /plants
+> `/plants`
 
 **Description :**
 
@@ -469,7 +469,7 @@ Base URL
 
 **Base URL :**
 
-> /plants/id/:id 
+> `/plants/id/:id`
 
 **Description :**
 
@@ -477,7 +477,7 @@ Base URL
 
 **URL Parameters :**
 
-> id   : The ID of the plant. 
+> `id`   : The ID of the plant. 
 
 **Response :**
 
@@ -501,7 +501,7 @@ Base URL
 
 **Base URL :**
 
-> /plants/name/:name  
+> `/plants/name/:name`  
 
 **Description :**
 
@@ -509,7 +509,7 @@ Base URL
 
 **URL Parameters :**
 
-> name   : The name of the plant. 
+> `name`   : The name of the plant. 
 
 **Response :**
 
@@ -537,7 +537,7 @@ Base URL
 
 **Base URL :**
 
-> /diseases
+> `/diseases`
 
 **Description :**
 
@@ -565,7 +565,7 @@ Base URL
 
 **Base URL :**
 
-> /diseases/id/:id 
+> `/diseases/id/:id`
 
 **Description :**
 
@@ -573,7 +573,7 @@ Base URL
 
 **URL Parameters :**
 
-> id   : The Unique identifier of the disease. 
+> `id`   : The Unique identifier of the disease. 
 
 **Response :**
 
@@ -599,7 +599,7 @@ Base URL
 
 **Base URL :**
 
-> /diseases/name/:name
+> `/diseases/name/:name`
 
 **Description :**
 
@@ -607,7 +607,7 @@ Base URL
 
 **URL Parameters :**
 
-> name   : The name of the disease. 
+> `name`   : The name of the disease. 
 
 **Response :**
 
@@ -633,7 +633,7 @@ Base URL
 
 **Base URL :**
 
-> /diseases/name/:name
+> `/diseases/name/:name`
 
 **Description :**
 
@@ -641,7 +641,7 @@ Base URL
 
 **URL Parameters :**
 
-> name   : The name of the disease. 
+> `name`   : The name of the disease. 
 
 **Response :**
 
@@ -671,20 +671,20 @@ Base URL
 
 **Base URL :**
 
-> /add_financial
+> `/add_financial`
 
 **Request Body :**
 
-- date_time (string): Tanggal dan waktu transaksi (contoh: "2023-06-01 08:00:00")
-- pemasukan (number)         : Jumlah pemasukan
-- pengeluaran (number)       : Jumlah pengeluaran
-- desc_pemasukan (string)    : Deskripsi pemasukan
-- desc_pengeluaran (string)  : Deskripsi pengeluaran
-- type (string)              : Tipe transaksi ("pemasukan" atau "pengeluaran")
+- `date_time` (string): Tanggal dan waktu transaksi (contoh: "2023-06-01 08:00:00")
+- `pemasukan` (number)         : Jumlah pemasukan
+- `pengeluaran` (number)       : Jumlah pengeluaran
+- `desc_pemasukan` (string)    : Deskripsi pemasukan
+- `desc_pengeluaran` (string)  : Deskripsi pengeluaran
+- `type` (string)              : Tipe transaksi ("pemasukan" atau "pengeluaran")
 
 **Response :**
 
-message (string)  : Pesan sukses atau gagal
+> `message` (string)  : Pesan sukses atau gagal
 
 **Error Response :**
 
@@ -705,11 +705,11 @@ message (string)  : Pesan sukses atau gagal
 
 **Base URL :**
 
-> /get_financial/:id 
+> `/get_financial/:id`
 
 **Request Parameters :**
 
-> id (string) : ID data keuangan
+> `id` (string) : ID data keuangan
 
 **Response :**
 
@@ -733,11 +733,11 @@ message (string)  : Pesan sukses atau gagal
 
 **Base URL :**
 
-> /edit_financial/:id 
+> `/edit_financial/:id`
 
 **Request Parameters :**
 
-> id (string) : ID data keuangan
+> `id` (string) : ID data keuangan
 
 **Request Body :**
 
@@ -771,7 +771,7 @@ message (string)  : Pesan sukses atau gagal
 
 **Base URL :**
 
-> /delete_financial/:id 
+> `/delete_financial/:id`
 
 **Request Parameters :**
 

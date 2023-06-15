@@ -128,12 +128,21 @@ Base URL
 
 **Response :**
 
- - Redirect to ‘/auth/google/protected’ on successful authentication.
- - Redirect to ‘/auth/google/failure’ on authentication failure.
+- Redirects the user to the Google authentication page.
+
+**Success Redirect :**
+
+- URL         : /auth/google/protected
+- Description : Redirects the user to this URL after successful Google authentication.
+
+**Failure Redirect :**
+
+- URL         : /auth/google/failure
+- Description : Redirects the user to this URL if Google authentication fails.
 
 <br>
 
-#### Google Authentication Succes
+#### Google Authentication Success
 
 **Method :**
 
@@ -145,14 +154,41 @@ Base URL
 
 **Description :**
 
-> Endpoint called after successful Google authentication.
+> Handles the callback after successful Google authentication.
 
 **Response :**
 
- - User data is stored in the database.
- - Redirect to ‘/auth/google/success/:token’, passing the generated JWT token as a parameter.
+ - Creates or finds a user in the database based on the Google account information.
+ - Generates a JWT token for the user.
+ - Redirects the user to /auth/google/success/:token with the generated token as a parameter.
 
 <br>
+
+#### Google Authentication Success Message
+
+**Method :**
+
+> GET
+
+**Base URL :**
+
+> /google/success/:token
+
+**Description :**
+
+> Displays a success message after Google authentication is completed successfully.
+
+**URL Parameters :**
+
+- token : The JWT token generated for the authenticated user.
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body        : Object containing a success message and the generated token.
+
+#### Google Authentication Failure 
+
 
 #### Google Authentication Succes Redirect
 
@@ -168,9 +204,9 @@ Base URL
 
 > Endpoint called after successful Google authentication and token generation.
 
-** URL Parameters :**
+**URL Parameters :**
 
-> ‘token’ : The generated JWT token
+> token : The generated JWT token
 
 **Response :**
 

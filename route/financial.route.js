@@ -13,49 +13,52 @@ route.post('/add_financial', async (req, res) => {
 
   try {
     const user = await users.findOne({ where: { id: userId } });
-    if (user) {
-      if (type === 'pemasukan') {
-        // Update user balance by adding the income
-        const total = user.balance + pemasukan;
-        await users.update({ balance: total }, { where: { id: userId } });
-      } else if (type === 'pengeluaran') {
-        // Check if user balance is sufficient for the expense
-        if (user.balance < pengeluaran) {
-          return res.json({ message: 'Your balance is not enough' });
-        } else {
-          // Update user balance by subtracting the expense
-          const total = user.balance - pengeluaran;
-          await users.update({ balance: total }, { where: { id: userId } });
-        }
-      }
-
-      // Create a new entry in the financial dashboard
-      const financial = await financial_dashboard.create({
-        date_time: date_time,
-        pemasukan: pemasukan,
-        desc_pemasukan: desc_pemasukan,
-        pengeluaran: pengeluaran,
-        desc_pengeluaran: desc_pengeluaran,
-        type: type,
-      });
-
-      // Save the relationship between the user and financial dashboard
-      await users_has_financial_dashboard.create({
-        user_id: userId,
-        financial_dashboard_id: financial.id,
-      });
-
-      return res.json({ message: 'Add financial success' });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    if (type === 'pemasukan') {
+      // Update user balance by adding the income
+      const total = user.balance + pemasukan;
+      await users.update({ balance: total }, { where: { id: userId } });
+    } else if (type === 'pengeluaran') {
+      // Check if user balance is sufficient for the expense
+      if (user.balance < pengeluaran) {
+        return res.status(400).json({ message: 'Your balance is not enough' });
+      } else {
+        // Update user balance by subtracting the expense
+        const total = user.balance - pengeluaran;
+        await users.update({ balance: total }, { where: { id: userId } });
+      }
+    }
+
+    // Create a new entry in the financial dashboard
+    const financial = await financial_dashboard.create({
+      date_time: date_time,
+      pemasukan: pemasukan,
+      desc_pemasukan: desc_pemasukan,
+      pengeluaran: pengeluaran,
+      desc_pengeluaran: desc_pengeluaran,
+      type: type,
+    });
+
+    // Save the relationship between the user and financial dashboard
+    await users_has_financial_dashboard.create({
+      user_id: userId,
+      financial_dashboard_id: financial.id,
+    });
+
+    return res.json({ message: 'Add financial success' });
   } catch (error) {
-    return res.json({ message: 'Add financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Add financial failed' });
   }
 });
 
 // Route get financial by financial id
 route.get('/get_financial/:id', async (req, res) => {
   const id = req.params.id;
-  
+
   try {
     // Get user financial data by financial id
     const userFinancial = await users_has_financial_dashboard.findOne({
@@ -69,14 +72,14 @@ route.get('/get_financial/:id', async (req, res) => {
     });
 
     if (!userFinancial) {
-      return res.json({ message: 'Get financial failed' });
+      return res.status(404).json({ message: 'Financial not found' });
     } else {
       const data = userFinancial.financial_dashboard;
-
       return res.json({ message: 'Get financial success', data: data });
     }
   } catch (error) {
-    return res.json({ message: 'Get financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Get financial failed' });
   }
 });
 
@@ -96,12 +99,12 @@ route.put('/edit_financial/:id', async (req, res) => {
 
   try {
     if (!isFinancialUser) {
-      return res.json({ message: 'You are not authorized to edit this financial' });
+      return res.status(403).json({ message: 'You are not authorized to edit this financial' });
     } else {
       const financial = await financial_dashboard.findOne({ where: { id: id } });
 
       if (!financial) {
-        return res.json({ message: 'Financial not found' });
+        return res.status(404).json({ message: 'Financial not found' });
       }
 
       const previousPemasukan = financial.pemasukan; // Previous income value
@@ -139,7 +142,8 @@ route.put('/edit_financial/:id', async (req, res) => {
       return res.json({ message: 'Financial successfully updated' });
     }
   } catch (error) {
-    return res.json({ message: 'Edit financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Edit financial failed' });
   }
 });
 
@@ -153,10 +157,14 @@ route.delete('/delete_financial/:id', async (req, res) => {
 
   try {
     if (!isFinancialUser) {
-      return res.json({ message: 'You are not authorized to delete this financial' });
+      return res.status(403).json({ message: 'You are not authorized to delete this financial' });
     } else {
       const userFinancial = await financial_dashboard.findOne({ where: { id: id } });
       const user = await users.findOne({ where: { id: req.user.id } });
+
+      if (!userFinancial) {
+        return res.status(404).json({ message: 'Financial not found' });
+      }
 
       if (userFinancial.type === 'pemasukan') {
         // Return balance by adding the deleted income
@@ -179,7 +187,8 @@ route.delete('/delete_financial/:id', async (req, res) => {
       return res.json({ message: 'Financial successfully deleted' });
     }
   } catch (error) {
-    return res.json({ message: 'Delete financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Delete financial failed' });
   }
 });
 
@@ -198,8 +207,8 @@ route.get('/get_pemasukan', async (req, res) => {
       ],
     });
 
-    if (!userFinancial) {
-      return res.json({ message: 'Get financial failed' });
+    if (!userFinancial || userFinancial.length === 0) {
+      return res.status(404).json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -211,7 +220,8 @@ route.get('/get_pemasukan', async (req, res) => {
       });
     }
   } catch (error) {
-    return res.json({ message: 'Get financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Get financial failed' });
   }
 });
 
@@ -231,7 +241,7 @@ route.get('/get_pengeluaran', async (req, res) => {
     });
 
     if (!userFinancial || userFinancial.length === 0) {
-      return res.json({ message: 'Get financial failed' });
+      return res.status(404).json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -243,7 +253,8 @@ route.get('/get_pengeluaran', async (req, res) => {
       });
     }
   } catch (error) {
-    return res.json({ message: 'Get financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Get financial failed' });
   }
 });
 
@@ -262,7 +273,7 @@ route.get('/get_all_financial', async (req, res) => {
     });
 
     if (!userFinancial || userFinancial.length === 0) {
-      return res.json({ message: 'Get financial failed' });
+      return res.status(404).json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -277,7 +288,8 @@ route.get('/get_all_financial', async (req, res) => {
       });
     }
   } catch (error) {
-    return res.json({ message: 'Get financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Get financial failed' });
   }
 });
 
@@ -298,7 +310,7 @@ route.get('/get_all_financial/:id', async (req, res) => {
     });
 
     if (!userFinancial || userFinancial.length === 0) {
-      return res.json({ message: 'Get financial failed' });
+      return res.status(404).json({ message: 'Get financial failed' });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -313,7 +325,8 @@ route.get('/get_all_financial/:id', async (req, res) => {
       });
     }
   } catch (error) {
-    return res.json({ message: 'Get financial failed' });
+    console.log(error);
+    return res.status(500).json({ message: 'Get financial failed' });
   }
 });
 

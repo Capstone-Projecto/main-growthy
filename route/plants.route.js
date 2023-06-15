@@ -18,10 +18,10 @@ route.get('/plants', async (req, res) => {
       ]
     });
 
-    res.send(allPlants);
+    res.json(allPlants);
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
@@ -45,13 +45,13 @@ route.get('/plants/:id', async (req, res) => {
     });
 
     if (detectedPlant) {
-      res.send(detectedPlant);
+      res.json(detectedPlant);
     } else {
-      res.status(404).send('Plant not found');
+      res.status(404).json({ message: 'Plant not found' });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
@@ -75,13 +75,13 @@ route.get('/plants/name/:name', async (req, res) => {
     });
 
     if (detectedPlant) {
-      res.send(detectedPlant);
+      res.json(detectedPlant);
     } else {
-      res.status(404).send('Plant not found');
+      res.status(404).json({ message: 'Plant not found' });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 

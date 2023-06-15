@@ -18,10 +18,10 @@ route.get('/diseases', async (req, res) => {
       ]
     });
 
-    res.send(allDiseases);
+    res.json(allDiseases);
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
@@ -45,13 +45,13 @@ route.get('/diseases/:id', async (req, res) => {
     });
 
     if (specificDisease) {
-      res.send(specificDisease);
+      res.json(specificDisease);
     } else {
-      res.status(404).send('Disease not found');
+      res.status(404).json({ message: 'Disease not found' });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
@@ -75,13 +75,13 @@ route.get('/diseases/name/:name', async (req, res) => {
     });
 
     if (specificDisease) {
-      res.send(specificDisease);
+      res.json(specificDisease);
     } else {
-      res.status(404).send('Disease not found');
+      res.status(404).json({ message: 'Disease not found' });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 

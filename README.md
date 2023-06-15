@@ -187,39 +187,13 @@ Base URL
 - Status Code : 200 (OK)
 - Body        : Object containing a success message and the generated token.
 
+<br> 
+
 #### Google Authentication Failure 
 
-
-#### Google Authentication Succes Redirect
-
 **Method :**
 
-> GET
-
-**Base URL :**
-
-> /google/success/:token
-
-**Description :**
-
-> Endpoint called after successful Google authentication and token generation.
-
-**URL Parameters :**
-
-> token : The generated JWT token
-
-**Response :**
-
-- Status Code : 200 (OK)
-- Body		      : JSON object containing a success message and the JWT token
-
-<br>
-
-#### Google Authentication Failure
-
-**Method :**
-
-> GET
+> `GET`
 
 **Base URL :**
 
@@ -227,12 +201,12 @@ Base URL
 
 **Description :**
 
-> Endpoint called when Google authentication fails. 
+> Handles the callback when Google authentication fails.
 
 **Response :**
 
-- Status Code : 200 (OK)
-- Body		      : Error message indicating the failure
+- Status Code  : 200 (OK)
+- Body         : Error message indicating the failure to login.
 
 <br>
 
@@ -240,7 +214,7 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
@@ -257,11 +231,11 @@ Base URL
 
 <br>
 
-#### User Login
+#### Login
 
 **Method :**
 
-> POST
+> `POST`
 
 **Base URL :**
 
@@ -269,21 +243,25 @@ Base URL
 
 **Description :**
 
-> Endpoint for user login
+> Handles the login logic for users with email and password.
 
 **Request Body :**
 
-- Email     : The email of the user
-- Password  : The password of the user
+- Email     : Email of the user
+- Password  : Password of the user
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON object containing a success message and the generated JWT token
+- Body		      : Object containing a success message and the generated token, and the name of the user. 
 
 **Error Response :**
 - Status Code : 404 (Not Found)
-- Body		      : Error message if there was an internal server error
+- Body		      : Error message if the user with the specified email was not found.
+- Status Code : 401 (Unauthorized)
+- Body        : Error message if the provided password is incorrect.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error.
 
 <br>
 
@@ -291,7 +269,7 @@ Base URL
 
 **Method :**
 
-> POST
+> `POST`
 
 **Base URL :**
 
@@ -299,23 +277,23 @@ Base URL
 
 **Description :**
 
-> Endpoint for user registration
+> Handles the registration logic for new users.
 
 **Request Body :**
 
-- Name      : The name od the user
-- Email     : The email of the user
-- Password  : The password of the user
+- Name      : Name of the user
+- Email     : Email of the user
+- Password  : Password of the user
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON object containing a success message and the generated JWT token
+- Body		      : Object containing a success message, the generated token, and the name of the user. 
 
 **Error Response :**
-- Status Code : 404 (Not Found)
+- Status Code : 409 (Conflict)
 - Body		      : Error message if there was an internal server error
-
+- 
 <br>
 
 ## User Route

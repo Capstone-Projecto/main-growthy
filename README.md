@@ -265,7 +265,7 @@ Base URL
 
 <br>
 
-#### User Registration
+#### Register
 
 **Method :**
 
@@ -304,7 +304,7 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
@@ -312,12 +312,12 @@ Base URL
 
 **Description :**
 
-> Retrieves all users 
+> Retrieves data for all users 
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON array containing user data, including associated financial dashboards.
+- Body		      : Array of user objects, including associated financial dashboard data.
 
 <br>
 
@@ -325,7 +325,7 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
@@ -333,17 +333,21 @@ Base URL
 
 **Description :**
 
-> Retrieves a user’s profile by ID
+> Retrieves the profile of a specific user by their ID.
 
+**URL Parameters :**
+
+- id   : The ID of the user
+  
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON object containing the user’s profile, including associated financial dashboards.
+- Body		      : User object, including associated financial dashboard data.
 
 **Error Response :**
 
 - Status Code : 404 (Not Found)
-- Body		      : Error message if the user with the specified ID was not found.
+- Body		      : Error message if the user with the specified ID was not found. 
 
 <br>
 
@@ -351,7 +355,7 @@ Base URL
 
 **Method :**
 
-> PUT
+> `PUT`
 
 **Base URL :**
 
@@ -359,34 +363,32 @@ Base URL
 
 **Description :**
 
-> Updates the profile data for a specific user identified by the provided ‘id’ parameter.
+> Updates the profile of a specific user by their ID.
 
 **URL Parameters :**
 
-> id    : The unique identifier of the user.
+> id    : The ID of the user. 
 
 **Request Body:**
 
-- name     : (optional) Updated name of the user.
-- email    : (optional) Updated email of the user.
-- gender   : (optional) Updated gender of the user.
-- phone    : (optional) Updated phone number of the user.
-- address  : (optional) Updated address of the user.
-- avatar   : (optional) Updated avatar file to be uploaded.
-   - File size limit : 5 MB
-   - Field name      : avatar
+- name     :  Updated name of the user.
+- email    :  Updated email of the user.
+- gender   :  Updated gender of the user.
+- phone    :  Updated phone number of the user.
+- address  :  Updated address of the user.
+- avatar   :  Updated avatar file to be uploaded.
    
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : Success message indicating that the profile was updated successfully.
+- Body		      : Success message indicating the profile update.
 
 **Error Response :**
 
 - Status Code : 404 (Not Found)
 - Body		      : Error message if the user with the specified ID was not found. 
 - Status Code : 500 (Internal Server Error)
-- Body		: Error message if there was an error updating the user profile or uploading the avatar file.
+- Body		      : Error message if there was an error updating the profile.
 
 <br>
 
@@ -394,7 +396,7 @@ Base URL
 
 **Method :**
 
-> PUT
+> `PUT`
 
 **Base URL :**
 
@@ -402,21 +404,21 @@ Base URL
 
 **Description :**
 
-> Updates the password for a specific user identified by the provided ‘id’ parameter.
+> Updates the password for a specific user by their ID.
 
 **URL Parameters :**
 
-> id    : The unique identifier of the user.
+> id    : The ID of the user.
 
 **Request Body:**
 
-- currentPassword : The user’s current password.
-- newPassword     : The user’s new password.
+- currentPassword : Current password of the user.
+- newPassword     : New password to be set for the user.
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : Success message indicating that the password was updated successfully.
+- Body		      : Success message indicating that the password update. 
 
 **Error Response :**
 
@@ -428,6 +430,8 @@ Base URL
 - Body       	:Error message if there was an error updating the password. 
 
 <br>
+
+
 
 
 

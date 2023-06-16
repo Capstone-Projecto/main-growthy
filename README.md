@@ -35,6 +35,7 @@ Currently we still developing the Apps. Stay tune!
    - TensorFlow, Keras
    - Python NoteBook
    - MatplotLib
+   - TFLite
 2. <b>Android Development</b>
    - Android Studio
    - Retrofit Library

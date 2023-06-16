@@ -2,8 +2,8 @@
 The Machine Learning team's job is to learn and create machine learning models for the GROWTHY Application, specifically for classifying ornamental plant information and detecting ornamental plant diseases.
 
 The machine learning part of the application consists of two main models:
-1. Ornamental plant classification model: This model detects different types of ornamental plants in real time and classifies them based on plant photos.
-2. Ornamental plant disease classification model: This model detects various types of diseases that attack ornamental plants and classifies them based on the diseases in the dataset.
+1. [Ornamental plant classification model](https://github.com/Capstone-Projecto/main-growthy/blob/machine-learning/notebook/Notebook_Klasifikasi_Tanaman_Hias.ipynb): This model detects different types of ornamental plants in real time and classifies them based on plant photos.
+2. [Ornamental plant disease classification model](https://github.com/Capstone-Projecto/main-growthy/blob/machine-learning/notebook/OPlant_Disease_e30%20(1).ipynb): This model detects various types of diseases that attack ornamental plants and classifies them based on the diseases in the dataset.
 
 ## Dataset
 To train and evaluate the models, the team uses the following datasets:

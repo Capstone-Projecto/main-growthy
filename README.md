@@ -12,10 +12,10 @@ To train and evaluate the models, the team uses the following datasets:
 
 ## Tasks
 The team follows a structured workflow with specific tasks for each week:
-Week 1: Data gathering and pre-processing. The team collects and prepares the necessary data, ensuring it is in a suitable format for training the models.
-Weeks 2 & 3: Data training. The team trains the machine learning models using the prepared datasets.
-Week 4: Model evaluation and optimization. The team evaluates the performance of the trained models, identifies areas for improvement, and optimizes the models accordingly.
-Week 5: Model deployment. The team finalizes the models and prepares them for deployment in the GROWTHY Application.
+- Week 1: Data gathering and pre-processing. The team collects and prepares the necessary data, ensuring it is in a suitable format for training the models.
+- Weeks 2 & 3: Data training. The team trains the machine learning models using the prepared datasets.
+- Week 4: Model evaluation and optimization. The team evaluates the performance of the trained models, identifies areas for improvement, and optimizes the models accordingly.
+- Week 5: Model deployment. The team finalizes the models and prepares them for deployment in the GROWTHY Application.
 
 ## Reference
 The team uses various resources and references for guidance and inspiration throughout the project, including:

@@ -9,6 +9,7 @@ The machine learning part of the application consists of two main models:
 To train and evaluate the models, the team uses the following datasets:
 1. [Plant Species Dataset](https://drive.google.com/drive/folders/1nBNTiMhPGavQEQ95O52bjjo3tGJcCvHI?usp=sharing): This dataset contains images of different ornamental plant species. 
 2. [Plant Disease Dataset](https://s.id/1MFQI): This dataset consists of images representing different diseases that can affect ornamental plants.
+3. Gathering data about ornamental plant [information]() and its associated [diseases](). 
 
 ## Tasks
 The team follows a structured workflow with specific tasks for each week:

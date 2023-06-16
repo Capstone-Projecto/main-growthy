@@ -9,7 +9,7 @@ The machine learning part of the Application consists of 2 main models:
 ## Dataset
 
 - Plant Species Dataset: https://drive.google.com/drive/folders/1nBNTiMhPGavQEQ95O52bjjo3tGJcCvHI?usp=sharing
-- Plant Disease Dataset:
+- Plant Disease Dataset: https://s.id/1MFQI
 
 ## Tasks
 - Week 1: Data gathering and pre-processing.

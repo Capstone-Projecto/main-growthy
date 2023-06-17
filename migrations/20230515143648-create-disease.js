@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       scientic_name: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       disease_desc: {
         type: Sequelize.TEXT
@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       potention: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       treatment: {
         type: Sequelize.TEXT

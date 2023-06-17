@@ -71,15 +71,24 @@ route.get('/get_financial/:id', async (req, res) => {
       ],
     });
 
+    // Check if there is any financial data
     if (!userFinancial) {
-      return res.status(404).json({ message: 'Financial not found' });
+      // If there is no financial data, return an empty array or any appropriate response
+      return res.json({
+        message: 'No financial data found',
+        balance: 0,
+        data: null,
+      });
     } else {
       const data = userFinancial.financial_dashboard;
       return res.json({ message: 'Get financial success', data: data });
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: 'Get financial failed' });
+    return res.status(500).json({
+      message: 'Get financial failed',
+      data: null,
+    });
   }
 });
 
@@ -221,7 +230,10 @@ route.get('/get_pemasukan', async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: 'Get financial failed' });
+    return res.status(500).json({
+      message: 'Get financial failed',
+      data: null,
+    });
   }
 });
 
@@ -254,7 +266,10 @@ route.get('/get_pengeluaran', async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: 'Get financial failed' });
+    return res.status(500).json({
+      message: 'Get financial failed',
+      data: null,
+    });
   }
 });
 
@@ -272,8 +287,14 @@ route.get('/get_all_financial', async (req, res) => {
       ],
     });
 
+    // Check if there is any financial data
     if (!userFinancial || userFinancial.length === 0) {
-      return res.status(404).json({ message: 'Get financial failed' });
+      // If there is no financial data, return an empty array or any appropriate response
+      return res.json({
+        message: 'No financial data found',
+        balance: 0,
+        data: null,
+      });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -289,7 +310,10 @@ route.get('/get_all_financial', async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: 'Get financial failed' });
+    return res.status(500).json({
+      message: 'Get financial failed',
+      data: null,
+    });
   }
 });
 
@@ -309,8 +333,14 @@ route.get('/get_all_financial/:id', async (req, res) => {
       ],
     });
 
+    // Check if there is any financial data
     if (!userFinancial || userFinancial.length === 0) {
-      return res.status(404).json({ message: 'Get financial failed' });
+      // If there is no financial data, return an empty array or any appropriate response
+      return res.json({
+        message: 'No financial data found',
+        balance: 0,
+        data: null,
+      });
     } else {
       const data = userFinancial.map((item) => {
         return item.financial_dashboard;
@@ -326,7 +356,10 @@ route.get('/get_all_financial/:id', async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: 'Get financial failed' });
+    return res.status(500).json({
+      message: 'Get financial failed',
+      data: null,
+    });
   }
 });
 

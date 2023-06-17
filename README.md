@@ -27,7 +27,7 @@ Currently we still developing the Apps. Stay tune!
 1. [main](https://github.com/anShape/bangkit-capstone) - About Project
 2. [cloud-computing](https://github.com/anShape/bangkit-capstone/tree/cloud-computing) - CC Project Repository
 3. [machine-learning](https://github.com/anShape/bangkit-capstone/tree/machine-learning) - ML Project Repository
-4. [mobile-development](https://github.com/anShape/bangkit-capstone/tree/mobile-development) - MD Project Repository
+4. [mobile-development](https://github.com/Capstone-Projecto/growthy-android) - MD Project Repository
 
 ## Technologies
 

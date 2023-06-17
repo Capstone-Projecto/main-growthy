@@ -3,7 +3,8 @@
 Creating **RESTful APIs** using NodeJS (Express) and deploying to [Google Cloud Platform](https://cloud.google.com) by using [Google App Engine](https://cloud.google.com/appengine) for connection between android application and database. Using Cloud SQL and Sequelize for creating the database server, and Cloud Storage for images storage.
 
 # ERD
-![GROWTHY (2)](https://github.com/Capstone-Projecto/main-growthy/assets/117957014/88d56d95-fe24-42a2-9bfa-efeb73c37899)
+![ERD GROWTHY](https://github.com/Capstone-Projecto/main-growthy/assets/117957014/8ae198f0-846d-47fe-be6c-6893282d9efd)
+
 
 # RESTful APIs
 In making the RESTful APIs we use NodeJS with the Express Framework for building an API server, and for responses using JSON format.
@@ -20,11 +21,11 @@ Base URL
 
 **Base URL :**
 
-> /auth
+> `/auth`
 
 **Method :**
 
-> USE
+> `USE`
 
 **Description :**
 
@@ -36,11 +37,11 @@ Base URL
 
 **Base URL :**
 
-> /user
+> `/user`
 
 **Method :**
 
-> USE
+> `USE`
 
 **Middleware :**
 
@@ -56,11 +57,11 @@ Base URL
 
 **Base URL :**
 
-> /plant
+> `/plant`
 
 **Method :**
 
-> USE
+> `USE`
 
 **Description :**
 
@@ -72,11 +73,11 @@ Base URL
 
 **Base URL :**
 
-> /disease
+> `/disease`
 
 **Method :**
 
-> USE
+> `USE`
 
 **Middleware :**
 
@@ -92,11 +93,11 @@ Base URL
 
 **Base URL :**
 
-> /financial
+> `/financial`
 
 **Method :**
 
-> USE
+> `USE`
 
 **Middleware :**
 
@@ -116,11 +117,11 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
-> /google
+> `/google`
 
 **Description :**
 
@@ -128,75 +129,85 @@ Base URL
 
 **Response :**
 
- - Redirect to ‘/auth/google/protected’ on successful authentication.
- - Redirect to ‘/auth/google/failure’ on authentication failure.
+- Redirects the user to the Google authentication page.
+
+**Success Redirect :**
+
+- URL         : `/auth/google/protected`
+- Description : Redirects the user to this URL after successful Google authentication.
+
+**Failure Redirect :**
+
+- URL         : `/auth/google/failure`
+- Description : Redirects the user to this URL if Google authentication fails.
 
 <br>
 
-#### Google Authentication Succes
+#### Google Authentication Success
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
-> /google/protected
+> `/google/protected`
 
 **Description :**
 
-> Endpoint called after successful Google authentication.
+> Handles the callback after successful Google authentication.
 
 **Response :**
 
- - User data is stored in the database.
- - Redirect to ‘/auth/google/success/:token’, passing the generated JWT token as a parameter.
+ - Creates or finds a user in the database based on the Google account information.
+ - Generates a JWT token for the user.
+ - Redirects the user to /auth/google/success/:token with the generated token as a parameter.
 
 <br>
 
-#### Google Authentication Succes Redirect
+#### Google Authentication Success Message
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
-> /google/success/:token
+> `/google/success/:token`
 
 **Description :**
 
-> Endpoint called after successful Google authentication and token generation.
+> Displays a success message after Google authentication is completed successfully.
 
-** URL Parameters :**
+**URL Parameters :**
 
-> ‘token’ : The generated JWT token
-
-**Response :**
-
-- Status Code : 200 (OK)
-- Body		      : JSON object containing a success message and the JWT token
-
-<br>
-
-#### Google Authentication Failure
-
-**Method :**
-
-> GET
-
-**Base URL :**
-
-> /google/failure
-
-**Description :**
-
-> Endpoint called when Google authentication fails. 
+- `token` : The JWT token generated for the authenticated user.
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : Error message indicating the failure
+- Body        : Object containing a success message and the generated token.
+
+<br> 
+
+#### Google Authentication Failure 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/google/failure`
+
+**Description :**
+
+> Handles the callback when Google authentication fails.
+
+**Response :**
+
+- Status Code  : 200 (OK)
+- Body         : Error message indicating the failure to login.
 
 <br>
 
@@ -204,11 +215,11 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
-> /test
+> `/test`
 
 **Description :**
 
@@ -221,65 +232,69 @@ Base URL
 
 <br>
 
-#### User Login
+#### Login
 
 **Method :**
 
-> POST
+> `POST`
 
 **Base URL :**
 
-> /login
+> `/login`
 
 **Description :**
 
-> Endpoint for user login
+> Handles the login logic for users with email and password.
 
 **Request Body :**
 
-- Email     : The email of the user
-- Password  : The password of the user
+- `Email`     : Email of the user
+- `Password`  : Password of the user
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON object containing a success message and the generated JWT token
+- Body		      : Object containing a success message and the generated token, and the name of the user. 
 
 **Error Response :**
 - Status Code : 404 (Not Found)
-- Body		      : Error message if there was an internal server error
+- Body		      : Error message if the user with the specified email was not found.
+- Status Code : 401 (Unauthorized)
+- Body        : Error message if the provided password is incorrect.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error.
 
 <br>
 
-#### User Registration
+#### Register
 
 **Method :**
 
-> POST
+> `POST`
 
 **Base URL :**
 
-> /register
+> `/register`
 
 **Description :**
 
-> Endpoint for user registration
+> Handles the registration logic for new users.
 
 **Request Body :**
 
-- Name      : The name od the user
-- Email     : The email of the user
-- Password  : The password of the user
+- `Name`      : Name of the user
+- `Email`     : Email of the user
+- `Password`  : Password of the user
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON object containing a success message and the generated JWT token
+- Body		      : Object containing a success message, the generated token, and the name of the user. 
 
 **Error Response :**
-- Status Code : 404 (Not Found)
+- Status Code : 409 (Conflict)
 - Body		      : Error message if there was an internal server error
-
+  
 <br>
 
 ## User Route
@@ -290,20 +305,20 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
-> /users
+> `/users`
 
 **Description :**
 
-> Retrieves all users 
+> Retrieves data for all users 
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON array containing user data, including associated financial dashboards.
+- Body		      : Array of user objects, including associated financial dashboard data.
 
 <br>
 
@@ -311,25 +326,29 @@ Base URL
 
 **Method :**
 
-> GET
+> `GET`
 
 **Base URL :**
 
-> /profile/:id
+> `/profile/:id`
 
 **Description :**
 
-> Retrieves a user’s profile by ID
+> Retrieves the profile of a specific user by their ID.
 
+**URL Parameters :**
+
+- `id`  : The ID of the user
+  
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : JSON object containing the user’s profile, including associated financial dashboards.
+- Body		      : User object, including associated financial dashboard data.
 
 **Error Response :**
 
 - Status Code : 404 (Not Found)
-- Body		      : Error message if the user with the specified ID was not found.
+- Body		      : Error message if the user with the specified ID was not found. 
 
 <br>
 
@@ -337,42 +356,40 @@ Base URL
 
 **Method :**
 
-> PUT
+> `PUT`
 
 **Base URL :**
 
-> /edit_profile/:id
+> `/edit_profile/:id`
 
 **Description :**
 
-> Updates the profile data for a specific user identified by the provided ‘id’ parameter.
+> Updates the profile of a specific user by their ID.
 
 **URL Parameters :**
 
-> id    : The unique identifier of the user.
+> id    : The ID of the user. 
 
 **Request Body:**
 
-- name     : (optional) Updated name of the user.
-- email    : (optional) Updated email of the user.
-- gender   : (optional) Updated gender of the user.
-- phone    : (optional) Updated phone number of the user.
-- address  : (optional) Updated address of the user.
-- avatar   : (optional) Updated avatar file to be uploaded.
-   - File size limit : 5 MB
-   - Field name      : avatar
+- `name`     :  Updated name of the user.
+- `email`    :  Updated email of the user.
+- `gender`  :  Updated gender of the user.
+- `phone`    :  Updated phone number of the user.
+- `address`  :  Updated address of the user.
+- `avatar`   :  Updated avatar file to be uploaded.
    
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : Success message indicating that the profile was updated successfully.
+- Body		      : Success message indicating the profile update.
 
 **Error Response :**
 
 - Status Code : 404 (Not Found)
 - Body		      : Error message if the user with the specified ID was not found. 
 - Status Code : 500 (Internal Server Error)
-- Body		: Error message if there was an error updating the user profile or uploading the avatar file.
+- Body		      : Error message if there was an error updating the profile.
 
 <br>
 
@@ -380,29 +397,29 @@ Base URL
 
 **Method :**
 
-> PUT
+> `PUT`
 
 **Base URL :**
 
-> /password /:id
+> `/password /:id`
 
 **Description :**
 
-> Updates the password for a specific user identified by the provided ‘id’ parameter.
+> Updates the password for a specific user by their ID.
 
 **URL Parameters :**
 
-> id    : The unique identifier of the user.
+> `id`    : The ID of the user.
 
 **Request Body:**
 
-- currentPassword : The user’s current password.
-- newPassword     : The user’s new password.
+- `currentPassword` : Current password of the user.
+- `newPassword`     : New password to be set for the user.
 
 **Response :**
 
 - Status Code : 200 (OK)
-- Body		      : Success message indicating that the password was updated successfully.
+- Body		      : Success message indicating that the password update. 
 
 **Error Response :**
 
@@ -415,8 +432,360 @@ Base URL
 
 <br>
 
+## Plant Route
 
+### Plant Endpoints
 
+#### Get All Plants 
 
+**Method :**
 
+> `GET`
+
+**Base URL :**
+
+> `/plants`
+
+**Description :**
+
+> Retrieves data for all plants. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message and an array of plant objects.
+
+**Error Response :**
+
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error.
+
+<br>
+
+#### Get Plant by ID
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/plants/id/:id`
+
+**Description :**
+
+> Retrieves data for a specific plant based on the plant ID.
+
+**URL Parameters :**
+
+> `id`   : The ID of the plant. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message and the plant object.
+
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the plant with the specified ID was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error. 
+
+<br>
+
+#### Get Plant by name 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/plants/name/:name`  
+
+**Description :**
+
+> Retrieves data for a specific plant based on the plant name.
+
+**URL Parameters :**
+
+> `name`   : The name of the plant. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message and the plant object.
+
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the plant with the specified name was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an internal server error. 
+
+<br>
+
+## Disease Route
+
+### Disease Endpoints
+
+#### Get All Diseases  
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/diseases`
+
+**Description :**
+
+> Retrieves information for all diseases. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      :
+  - message : Success message
+  - data    : Array of disease objects containing information about each disease. The `createdAt` and `updatedAt` fields are excluded.
+
+**Error Response :**
+
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the diseases. 
+
+<br>
+
+#### Get specific disease by disease ID 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/diseases/id/:id`
+
+**Description :**
+
+> Retrieves information about a specific disease identified by the provided 'id' parameter.
+
+**URL Parameters :**
+
+> `id`   : The Unique identifier of the disease. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : Success message and the plant object.
+   - message  : Success message.
+   - data     : Object containing information about the specific disease. The `createdAt` and `updatedAt` fields are excluded.
+     
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the plant with the specified ID was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the disease. 
+
+<br>
+
+#### Get specific disease by disease ID 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/diseases/name/:name`
+
+**Description :**
+
+> Retrieves information about a specific disease identified by the provided 'name' parameter.
+
+**URL Parameters :**
+
+> `name`   : The name of the disease. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : 
+   - message  : Success message.
+   - data     : Object containing information about the specific disease. The `createdAt` and `updatedAt` fields are excluded.
+     
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the disease with the specified name was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the disease. 
+
+<br>
+
+#### Get specific disease by disease ID 
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/diseases/name/:name`
+
+**Description :**
+
+> Retrieves information about a specific disease identified by the provided `name` parameter.
+
+**URL Parameters :**
+
+> `name`   : The name of the disease. 
+
+**Response :**
+
+- Status Code : 200 (OK)
+- Body		      : 
+   - message  : Success message.
+   - data     : Object containing information about the specific disease. The `createdAt` and `updatedAt` fields are excluded.
+     
+**Error Response :**
+
+- Status Code : 404 (Not Found)
+- Body        : Error message if the disease with the specified name was not found.
+- Status Code : 500 (Internal Server Error)
+- Body        : Error message if there was an error retrieving the disease. 
+
+<br>
+
+## Financial Route
+
+### Financial Endpoints
+
+#### Add Financial
+
+**Method :**
+
+> `POST`
+
+**Base URL :**
+
+> `/add_financial`
+
+**Request Body :**
+
+- `date_time` (string): Tanggal dan waktu transaksi (contoh: "2023-06-01 08:00:00")
+- `pemasukan` (number)         : Jumlah pemasukan
+- `pengeluaran` (number)       : Jumlah pengeluaran
+- `desc_pemasukan` (string)    : Deskripsi pemasukan
+- `desc_pengeluaran` (string)  : Deskripsi pengeluaran
+- `type` (string)              : Tipe transaksi ("pemasukan" atau "pengeluaran")
+
+**Response :**
+
+> `message` (string)  : Pesan sukses atau gagal
+
+**Error Response :**
+
+- Status Code : 404 Not Found
+- message     : User tidak ditemukan
+- Status Code : 400 Bad Request
+- message     : Saldo Anda tidak mencukupi
+- Status Code : 500 Internal Server Error
+- message     : Gagal menambahkan data keuangan
+
+<br>
+
+#### Get Financial by Financial ID
+
+**Method :**
+
+> `GET`
+
+**Base URL :**
+
+> `/get_financial/:id`
+
+**Request Parameters :**
+
+> `id` (string) : ID data keuangan
+
+**Response :**
+
+- `message` (string)  : Pesan sukses atau gagal
+- `data` (object)     : Data keuangan yang sesuai dengan ID
+
+**Error Response :**
+
+- Status Code         : 404 Not Found
+- message             : Data keuangan tidak ditemukan
+- Status Code         : 500 Internal Server Error
+- message             : Gagal mendapatkan data keuangan
+
+<br>
+
+#### Edit Income 
+
+**Method :**
+
+> `PUT`
+
+**Base URL :**
+
+> `/edit_financial/:id`
+
+**Request Parameters :**
+
+> `id` (string) : ID data keuangan
+
+**Request Body :**
+
+- `date_time` (string)  : Tanggal dan waktu transaksi yang baru (contoh: "2023-06-01 08:00:00")
+- `pemasukan` (number)        : Jumlah pemasukan yang baru
+- `pengeluaran` (number)      : Jumlah pengeluaran yang baru
+- `desc_pemasukan` (string)   : Deskripsi pemasukan yang baru
+- `desc_pengeluaran` (string) : Deskripsi pengeluaran yang baru
+- `type` (string)             : Tipe transaksi yang baru ("pemasukan" atau "pengeluaran")
+
+**Response :**
+
+- `message` (string)  : Pesan sukses atau gagal
+
+**Error Response :**
+
+- Status Code         : 403 Not Forbidden
+  `message`           : Anda tidak diizinkan untuk mengedit data keuangan ini
+- Status Code         : 404 Not Found
+  `message`           : Data keuangan tidak ditemukan 
+- Status Code         : 500 Internal Server Error
+  `message`           : Gagal mengedit data keuangan
+
+<br>
+
+#### Delete Financial
+
+**Method :**
+
+> `DELETE`
+
+**Base URL :**
+
+> `/delete_financial/:id`
+
+**Request Parameters :**
+
+> `id` (string) : ID data keuangan
+
+**Response :**
+
+- `message` (string)  : Pesan sukses atau gagal
+
+**Error Response :**
+
+- Status Code         : 403 Not Forbidden
+  - `message`           : Anda tidak diizinkan untuk menghapus data keuangan ini
+
+<br>
 
